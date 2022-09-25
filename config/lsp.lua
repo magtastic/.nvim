@@ -4,59 +4,20 @@ local lsp_config = require("lspconfig")
 
 mason.setup()
 mason_lspconfig.setup({automatic_installation = true})
-
-local on_attach = function(_, bufnr)
-    local function buf_set_keymap(...)
-        vim.api.nvim_buf_set_keymap(bufnr, ...)
-    end
-
-    -- Disabled, because not sure what this does
-    -- local function buf_set_option(...)
-    --   vim.api.nvim_buf_set_option(bufnr, ...)
-    -- end
-    -- Enable completion triggered by <c-x><c-o>
-    -- buf_set_option("omnifunc", "v:lua.vim.lsp.omnifunc")
-
-    -- Mappings.
-    local opts = {noremap = true, silent = true}
-
-    -- See `:help vim.lsp.*` for documentation on any of the below functions
-    buf_set_keymap("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
-
-    buf_set_keymap("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
-    buf_set_keymap("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
-    buf_set_keymap("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
-    buf_set_keymap("n", "<C-k>", "<cmd>lua vim.lsp.buf.signature_help()<CR>",
-                   opts)
-    buf_set_keymap("n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
-    buf_set_keymap("n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>",
-                   opts)
-    buf_set_keymap("n", "<leader>E", "<cmd>lua vim.diagnostic.open_float()<CR>",
-                   opts)
-
-    -- not using, maybe add later
-    -- buf_set_keymap("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
-    -- buf_set_keymap("n", "<leader>wa",
-    --                "<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>", opts)
-    -- buf_set_keymap("n", "<leader>wr",
-    --                "<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>", opts)
-    -- buf_set_keymap("n", "<leader>wl",
-    --                "<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>",
-    --                opts)
-    -- buf_set_keymap("n", "<leader>D",
-    --                "<cmd>lua vim.lsp.buf.type_definition()<CR>", opts)
-end
+local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp
+                                                                     .protocol
+                                                                     .make_client_capabilities())
 
 -- Lua
 lsp_config.sumneko_lua.setup {
+    capabilities = capabilities,
     settings = {
         Lua = {
             diagnostics = {globals = {"vim", "use"}},
             workspace = {preloadFileSize = 500}
         }
     },
-    on_attach = function(client, bufnr)
-        on_attach(client, bufnr)
+    on_attach = function(client)
         -- disable formatting. Handled by null-ls
         client.resolved_capabilities.document_formatting = false
         client.resolved_capabilities.document_range_formatting = false
@@ -64,10 +25,11 @@ lsp_config.sumneko_lua.setup {
 }
 
 -- Ruby
-lsp_config.solargraph.setup {}
+lsp_config.solargraph.setup {capabilities = capabilities}
 
 -- Python
 lsp_config.pyright.setup {
+    capabilities = capabilities,
     settings = {
         settings = {
             python = {
@@ -80,8 +42,17 @@ lsp_config.pyright.setup {
             }
         }
     },
-    on_attach = on_attach
+    on_new_config = function(config, root_dir)
+        -- Check if poetry env is active. Add that as python path
+        local env = vim.trim(vim.fn.system(
+                                 'cd "' .. root_dir ..
+                                     '"; poetry env info -p 2>/dev/null'))
+        if string.len(env) > 0 then
+            config.settings.python.pythonPath = env .. '/bin/python'
+        end
+    end
 }
+
 -- WIP to remove the react.d.ts files hehe.
 -- local custom_ts_handler = {
 --     ["textDocument/definition"] = function(_, result, ctx, config)
@@ -129,14 +100,14 @@ lsp_config.pyright.setup {
 
 -- Tsserver
 lsp_config.tsserver.setup {
+    capabilities = capabilities,
     settings = {},
     filetypes = {
         "typescript", "typescriptreact", "typescript.tsx", "javascript"
     },
     debug = false,
     -- handlers = custom_ts_handler,
-    on_attach = function(client, bufnr)
-        on_attach(client, bufnr)
+    on_attach = function(client, _)
         -- disable formatting. Handled by null-ls
         client.resolved_capabilities.document_formatting = false
         client.resolved_capabilities.document_range_formatting = false
