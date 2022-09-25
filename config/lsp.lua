@@ -42,6 +42,10 @@ lsp_config.pyright.setup {
             }
         }
     },
+    on_attach = function(client)
+        client.resolved_capabilities.document_formatting = false
+        client.resolved_capabilities.document_range_formatting = false
+    end,
     on_new_config = function(config, root_dir)
         -- Check if poetry env is active. Add that as python path
         local env = vim.trim(vim.fn.system(
