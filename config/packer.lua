@@ -5,7 +5,7 @@ return require("packer").startup(function()
 
     -- Color Scheme
     use "folke/tokyonight.nvim"
-    use({'projekt0n/github-nvim-theme'})
+    use 'projekt0n/github-nvim-theme'
 
     use 'kyazdani42/nvim-web-devicons'
     use {
@@ -24,41 +24,41 @@ return require("packer").startup(function()
 
     use 'rcarriga/nvim-notify'
 
+    -- Telescope
     use {
         "nvim-telescope/telescope.nvim",
         requires = {{"nvim-lua/plenary.nvim"}}
     }
     use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make'}
+    use "ahmedkhalf/project.nvim"
 
-    use {"ahmedkhalf/project.nvim"}
-
+    -- LSP
     use {
         "williamboman/mason.nvim", "williamboman/mason-lspconfig.nvim",
         "neovim/nvim-lspconfig"
     }
-
     use "jason0x43/nvim-lsp-ts-utils"
     use "jose-elias-alvarez/null-ls.nvim"
+    use "glepnir/lspsaga.nvim"
+
+    -- Snippet engine
+    use "L3MON4D3/LuaSnip"
 
     -- Auto Complete
-    use "hrsh7th/cmp-nvim-lsp"
-    use "hrsh7th/cmp-buffer"
-    use "hrsh7th/cmp-path"
-    use "hrsh7th/cmp-cmdline"
-    use "hrsh7th/nvim-cmp"
-    use "saadparwaiz1/cmp_luasnip"
-
-    -- Snipets
-    use "L3MON4D3/LuaSnip"
+    use 'hrsh7th/nvim-cmp'
+    use 'hrsh7th/cmp-nvim-lsp'
+    use 'hrsh7th/cmp-buffer'
+    use 'hrsh7th/cmp-path'
+    use 'hrsh7th/cmp-cmdline'
+    use 'saadparwaiz1/cmp_luasnip'
 
     -- Treesitter
     use "nvim-treesitter/nvim-treesitter"
     use "nvim-treesitter/playground"
 
     -- Auto close pairs
+    use "windwp/nvim-ts-autotag"
     use "windwp/nvim-autopairs"
-
-    use "ray-x/lsp_signature.nvim"
 
     -- Comments
     use {
