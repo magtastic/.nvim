@@ -2,9 +2,6 @@ local map = vim.api.nvim_set_keymap
 local config = {noremap = true, silent = true}
 local NORMAL_MODE = "n"
 
-local VISUAL_MODE = "v"
-local INSERT_MODE = "i"
-
 -- Split buffers
 map(NORMAL_MODE, "<leader>v", ":vsplit<cr>", config)
 map(NORMAL_MODE, "<leader>V", ":split<cr>", config)
@@ -29,7 +26,7 @@ map(NORMAL_MODE, "<leader>s", ":w<cr>", config)
 map(NORMAL_MODE, "<leader>x", ":q<cr>", config)
 
 -- Telescope
-map(NORMAL_MODE, "<C-p>", ":Telescope find_files<cr>", config)
+map(NORMAL_MODE, "<C-p>", ":Telescope find_files hidden=true<cr>", config)
 map(NORMAL_MODE, "<C-f>", ":Telescope projects<cr>", config)
 map(NORMAL_MODE, "<C-o>", ":Telescope live_grep<cr>", config)
 
