@@ -31,6 +31,7 @@ return require("packer").startup(function()
     }
     use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make'}
     use "ahmedkhalf/project.nvim"
+    use 'nvim-telescope/telescope-github.nvim'
 
     -- LSP
     use {
