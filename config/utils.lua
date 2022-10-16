@@ -32,4 +32,25 @@ end
 
 M.fugitive = Fugitive
 
+local Table = {}
+
+Table.find = function(tbl, f)
+    for _, v in ipairs(tbl) do if f(v) then return v end end
+    return nil
+end
+
+Table.find_all = function(tbl, f)
+    local matches = {}
+    for _, v in ipairs(tbl) do if f(v) then matches[#matches + 1] = v end end
+    return matches
+end
+
+Table.map = function(tbl, f)
+    local t = {}
+    for k, v in pairs(tbl) do t[k] = f(v) end
+    return t
+end
+
+M.table = Table
+
 return M
