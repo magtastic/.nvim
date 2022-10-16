@@ -19,5 +19,9 @@ vim.g.loaded_netrwPlugin = 1
 
 vim.opt_global.listchars = {tab = "▸ ", trail = "·"}
 
+vim.api.nvim_create_autocmd({"BufNewFile", "BufRead"}, {
+    pattern = {"Podfile", "*.podspec"},
+    command = "set filetype=ruby"
+})
 vim.cmd [[colorscheme tokyonight]]
 -- require('github-theme').setup()
