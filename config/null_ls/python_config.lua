@@ -1,6 +1,4 @@
-local null_ls = require('null-ls')
-local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
-
+local M = {}
 local get_whitespace_count = function(input)
     local whitespace_count = 0
     local fixed = input:gsub('^\n', '')
@@ -71,7 +69,7 @@ local format_sql = function(bufnr)
     return edits
 end
 
-local async_formatting = function(bufnr)
+M.format = function(bufnr)
     bufnr = bufnr or vim.api.nvim_get_current_buf()
 
     vim.lsp.buf_request(bufnr, "textDocument/formatting",
@@ -108,32 +106,4 @@ local async_formatting = function(bufnr)
     end)
 end
 
-local sources = {
-    null_ls.builtins.formatting.prettier, null_ls.builtins.diagnostics.eslint_d,
-    null_ls.builtins.formatting.black.with({extra_args = {"--fast"}}),
-    null_ls.builtins.formatting.lua_format,
-    null_ls.builtins.code_actions.eslint_d
-}
-
-null_ls.setup({
-    debug = false,
-    sources = sources,
-    on_attach = function(client, bufnr)
-        local current_filetype = vim.bo[bufnr].filetype
-
-        if client.supports_method("textDocument/formatting") then
-            vim.api.nvim_clear_autocmds({group = augroup, buffer = bufnr})
-            vim.api.nvim_create_autocmd("BufWritePre", {
-                group = augroup,
-                buffer = bufnr,
-                callback = function()
-                    if current_filetype == 'python' then
-                        async_formatting(bufnr)
-                    else
-                        vim.lsp.buf.formatting_sync()
-                    end
-                end
-            })
-        end
-    end
-})
+return M

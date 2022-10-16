@@ -9,7 +9,7 @@ require "config/packer"
 
 require "config/lsp"
 require "config/lspsaga"
-require "config/null_ls"
+require "config/null_ls/init"
 
 require "config/lualine"
 require "config/telescope"
