@@ -25,7 +25,14 @@ lsp_config.sumneko_lua.setup {
 }
 
 -- Ruby
-lsp_config.solargraph.setup {capabilities = capabilities}
+lsp_config.solargraph.setup {
+    capabilities = capabilities,
+    on_attach = function(client)
+        -- disable formatting. Handled by null-ls
+        client.resolved_capabilities.document_formatting = false
+        client.resolved_capabilities.document_range_formatting = false
+    end
+}
 
 -- Python
 lsp_config.pyright.setup {
@@ -56,51 +63,6 @@ lsp_config.pyright.setup {
         end
     end
 }
-
--- WIP to remove the react.d.ts files hehe.
--- local custom_ts_handler = {
---     ["textDocument/definition"] = function(_, result, ctx, config)
---         if result == nil or vim.tbl_isempty(result) then return nil end
---
---         local client = vim.lsp.get_client_by_id(ctx.client_id)
---
---         config = config or {}
---
---         local util = require("vim.lsp.util")
---
---         if vim.tbl_islist(result) then
---             local has_jumped = false
---
---             if #result > 1 then
---                 local result_without_react_types = {}
---                 for _, value in pairs(result) do
---                     if string.match(value.targetUri, "react/index.d.ts") then
---                         break
---                     else
---                         result_without_react_types[#result_without_react_types +
---                             1] = value
---                         if not has_jumped then
---                             has_jumped = true
---                             util.jump_to_location(value, client.offset_encoding,
---                                                   config.reuse_win)
---                         end
---                     end
---                 end
---
---                 if #result_without_react_types > 1 then
---                     util.set_qflist(util.locations_to_items(
---                                         result_without_react_types))
---                     vim.api.nvim_command("copen")
---                     vim.api.nvim_command("wincmd p")
---                 end
---
---             end
---         else
---             util.jump_to_location(result, client.offset_encoding,
---                                   config.reuse_win)
---         end
---     end
--- }
 
 -- Tsserver
 lsp_config.tsserver.setup {
