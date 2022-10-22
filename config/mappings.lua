@@ -38,6 +38,8 @@ map(NORMAL_MODE, "<leader>/", ":noh<cr>", config)
 
 -- Reload
 map(NORMAL_MODE, "<leader>r", ":source $CONFIG_PATH/nvim/init.lua<cr>", config)
+map(NORMAL_MODE, "<leader><leader>x",
+    ":lua require('config/utils').execute.file()<cr>", config)
 
 -- Github
 map(NORMAL_MODE, "<leader>gp", ":Telescope gh pull_request<cr>", config)
