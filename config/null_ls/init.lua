@@ -6,12 +6,16 @@ local python = require('config/null_ls/python_config')
 local sources = {
     null_ls.builtins.formatting.prettier, null_ls.builtins.diagnostics.eslint_d,
     null_ls.builtins.formatting.rubocop,
-    null_ls.builtins.formatting.black.with({
-        extra_args = {"--fast --config ./linters/pyproject.toml"}
-    }), null_ls.builtins.formatting.isort.with({
-        extra_args = {"--settings-path ./linters/pyproject.toml"}
-    }), null_ls.builtins.formatting.lua_format,
-    null_ls.builtins.code_actions.eslint_d
+    null_ls.builtins.formatting.black.with {
+        extra_args = {"--fast"},
+        cwd = function(params)
+            local path = vim.fn.fnamemodify(params.bufname, ':h')
+            return path
+        end
+    }, null_ls.builtins.formatting.isort,
+    null_ls.builtins.formatting.lua_format,
+    null_ls.builtins.code_actions.eslint_d, null_ls.builtins.diagnostics.gitlint
+    -- null_ls.builtins.diagnostics.commitlint
 }
 
 null_ls.setup({

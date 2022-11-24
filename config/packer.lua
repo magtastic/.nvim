@@ -42,9 +42,6 @@ return require("packer").startup(function()
     use "jose-elias-alvarez/null-ls.nvim"
     use "glepnir/lspsaga.nvim"
 
-    -- Snippet engine
-    use "L3MON4D3/LuaSnip"
-
     -- Auto Complete
     use 'hrsh7th/nvim-cmp'
     use 'hrsh7th/cmp-nvim-lsp'
@@ -52,6 +49,10 @@ return require("packer").startup(function()
     use 'hrsh7th/cmp-path'
     use 'hrsh7th/cmp-cmdline'
     use 'saadparwaiz1/cmp_luasnip'
+
+    -- Snippet engine
+    use "L3MON4D3/LuaSnip"
+    use "rafamadriz/friendly-snippets"
 
     -- Treesitter
     use "nvim-treesitter/nvim-treesitter"
@@ -71,6 +72,9 @@ return require("packer").startup(function()
         "norcalli/nvim-colorizer.lua",
         config = function() require"colorizer".setup() end
     }
+
+    -- Structural search and replace
+    use {"cshuaimin/ssr.nvim", module = "ssr"}
 
     -- 👑 TPOPE 👑
     -- Surround objects

@@ -23,5 +23,5 @@ vim.api.nvim_create_autocmd({"BufNewFile", "BufRead"}, {
     pattern = {"Podfile", "*.podspec"},
     command = "set filetype=ruby"
 })
-vim.cmd [[colorscheme tokyonight]]
+vim.cmd [[colorscheme tokyonight-night]]
 -- require('github-theme').setup()
