@@ -8,6 +8,7 @@ table.insert(runtime_path, "lua/?/init.lua")
 
 mason.setup()
 mason_lspconfig.setup({automatic_installation = true})
+
 local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp
                                                                       .protocol
                                                                       .make_client_capabilities())
@@ -16,8 +17,7 @@ local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp
 lsp_config.sumneko_lua.setup({
     on_attach = function(client)
         -- disable formatting. Handled by null-ls
-        client.resolved_capabilities.document_formatting = false
-        client.resolved_capabilities.document_range_formatting = false
+        client.server_capabilities.documentFormattingProvider = false
     end,
     settings = {
         Lua = {
@@ -46,8 +46,7 @@ lsp_config.solargraph.setup {
     capabilities = capabilities,
     on_attach = function(client)
         -- disable formatting. Handled by null-ls
-        client.resolved_capabilities.document_formatting = false
-        client.resolved_capabilities.document_range_formatting = false
+        client.server_capabilities.documentFormattingProvider = false
     end
 }
 
@@ -67,8 +66,7 @@ lsp_config.pyright.setup {
         }
     },
     on_attach = function(client)
-        client.resolved_capabilities.document_formatting = false
-        client.resolved_capabilities.document_range_formatting = false
+        client.server_capabilities.documentFormattingProvider = false
     end,
     on_new_config = function(config, root_dir)
         -- Check if poetry env is active. Add that as python path
@@ -92,8 +90,7 @@ lsp_config.tsserver.setup {
     -- handlers = custom_ts_handler,
     on_attach = function(client, _)
         -- disable formatting. Handled by null-ls
-        client.resolved_capabilities.document_formatting = false
-        client.resolved_capabilities.document_range_formatting = false
+        client.server_capabilities.documentFormattingProvider = false
 
         local ts_utils = require("nvim-lsp-ts-utils")
         ts_utils.setup {

@@ -33,7 +33,7 @@ null_ls.setup({
                     if current_filetype == 'python' then
                         python.format(bufnr)
                     else
-                        vim.lsp.buf.formatting_sync()
+                        vim.lsp.buf.format()
                     end
                 end
             })
