@@ -17,7 +17,7 @@ vim.o.list = true
 vim.g.loaded = 1
 vim.g.loaded_netrwPlugin = 1
 
-vim.opt_global.listchars = {tab = "▸ ", trail = "·"}
+vim.opt_global.listchars = {tab = "▸ ", trail = "·", lead = "·"}
 
 vim.api.nvim_create_autocmd({"BufNewFile", "BufRead"}, {
     pattern = {"Podfile", "*.podspec"},
