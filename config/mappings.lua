@@ -1,5 +1,6 @@
 local map = vim.keymap.set
 local config = {noremap = true, silent = true}
+
 local NORMAL_MODE = "n"
 local VISUAL_MODE = "x"
 -- local VISUAL_INCLUDING_SELECT_MODE = "v"
@@ -35,9 +36,12 @@ map({NORMAL_MODE}, "<leader>s", ":w<cr>", config)
 map({NORMAL_MODE}, "<leader>x", ":q<cr>", config)
 
 -- Telescope
-map({NORMAL_MODE}, "<C-p>", ":Telescope find_files hidden=true<cr>", config)
+local telescope_builtin = require('telescope.builtin')
+map({NORMAL_MODE}, "<C-p>",
+    function() telescope_builtin.find_files({hidden = true}) end, config)
+map({NORMAL_MODE}, "<C-o>", function() telescope_builtin.live_grep() end, config)
+map({NORMAL_MODE}, "<C-i>", function() telescope_builtin.resume() end, config)
 map({NORMAL_MODE}, "<C-f>", ":Telescope projects<cr>", config)
-map({NORMAL_MODE}, "<C-o>", ":Telescope live_grep<cr>", config)
 
 -- Nvim Tree
 map({NORMAL_MODE}, "<C-n>", ":NvimTreeToggle<cr>", config)

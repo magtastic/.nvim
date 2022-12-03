@@ -88,7 +88,7 @@ lsp_config.tsserver.setup {
     },
     debug = false,
     -- handlers = custom_ts_handler,
-    on_attach = function(client, _)
+    on_attach = function(client)
         -- disable formatting. Handled by null-ls
         client.server_capabilities.documentFormattingProvider = false
 
@@ -108,7 +108,7 @@ lsp_config.tsserver.setup {
             import_all_scan_buffers = 100,
             import_all_select_source = false,
 
-            -- ESlint is disabled. We use efm server for that.
+            -- ESlint is disabled. We use null ls server for that.
             eslint_enable_diagnostics = false,
             eslint_enable_code_actions = false,
 

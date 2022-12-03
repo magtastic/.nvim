@@ -51,8 +51,10 @@ cmp.setup({
         ["<S-Tab>"] = cmp.mapping.select_prev_item(),
         ["<CR>"] = cmp.mapping.confirm({select = true})
     }),
-    sources = cmp.config.sources({{name = 'nvim_lsp'}, {name = 'luasnip'}},
-                                 {{name = 'buffer'}})
+    sources = cmp.config.sources({
+        {name = 'nvim_lsp'}, {name = 'luasnip'},
+        {name = 'nvim_lsp_signature_help'}
+    }, {{name = 'buffer'}})
 })
 
 -- -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
