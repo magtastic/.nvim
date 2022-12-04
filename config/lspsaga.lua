@@ -73,9 +73,11 @@ map(NORMAL_MODE, "<leader>ca", "<cmd>Lspsaga code_action<CR>", config)
 map(NORMAL_MODE, "<leader>E", "<cmd>Lspsaga show_line_diagnostics<CR>", config)
 map(NORMAL_MODE, "[e", "<cmd>Lspsaga diagnostic_jump_prev<CR>", config)
 map(NORMAL_MODE, "]e", "<cmd>Lspsaga diagnostic_jump_next<CR>", config)
+
+-- LSoutlineToggle is not working as expected.
+-- Waiting for https://github.com/glepnir/lspsaga.nvim/pull/586
 map(NORMAL_MODE, "<leader>o", "<cmd>LSoutlineToggle<CR>", config)
 
--- Example:
 local function get_file_name(include_path)
     ---@diagnostic disable-next-line: missing-parameter
     local file_name = require('lspsaga.symbolwinbar').get_file_name()
@@ -120,10 +122,10 @@ local events = {'BufEnter', 'BufWinEnter', 'CursorMoved'}
 
 vim.api.nvim_create_autocmd(events, {
     pattern = '*',
-    callback = function() config_winbar_or_statusline() end
+    callback = config_winbar_or_statusline
 })
 
 vim.api.nvim_create_autocmd('User', {
     pattern = 'LspsagaUpdateSymbol',
-    callback = function() config_winbar_or_statusline() end
+    callback = config_winbar_or_statusline
 })
