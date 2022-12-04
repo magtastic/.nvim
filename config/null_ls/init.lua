@@ -3,6 +3,8 @@ local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 local python = require('config/null_ls/python_config')
 -- local move_style_code_action = require('config/null_ls/move_style_code_action')
 
+-- require('refactoring').setup({})
+
 local sources = {
     null_ls.builtins.formatting.prettier, null_ls.builtins.diagnostics.eslint_d,
     null_ls.builtins.formatting.rubocop,
@@ -14,7 +16,10 @@ local sources = {
         end
     }, null_ls.builtins.formatting.isort,
     null_ls.builtins.formatting.lua_format,
-    null_ls.builtins.code_actions.eslint_d, null_ls.builtins.diagnostics.gitlint
+    null_ls.builtins.code_actions.eslint_d
+    -- null_ls.builtins.diagnostics.gitlint
+    -- TODO: This is really coool but not working. fix plz
+    -- null_ls.builtins.code_actions.refactoring,
     -- null_ls.builtins.diagnostics.commitlint
 }
 

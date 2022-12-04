@@ -1,4 +1,18 @@
 local cmp = require 'cmp'
+local tabnine = require('cmp_tabnine.config')
+
+tabnine:setup({
+    max_lines = 1000,
+    max_num_results = 20,
+    sort = true,
+    run_on_every_keystroke = true,
+    snippet_placeholder = '..',
+    ignored_file_types = {
+        -- default is not to ignore
+        -- lua = true
+    },
+    show_prediction_strength = true
+})
 
 local cmp_kinds = {
     Text = "",
@@ -28,21 +42,34 @@ local cmp_kinds = {
     TypeParameter = ""
 }
 
+local source_map = {
+    buffer = "[]",
+    nvim_lsp = "[]",
+    cmp_tabnine = "[]",
+    luasnip = "[]",
+    latex_symbols = "[LaTeX]"
+}
+-- 
+
 cmp.setup({
     snippet = {
         expand = function(args) require('luasnip').lsp_expand(args.body) end
+    },
+    sorting = {
+        priority_weight = 2,
+        comparators = {
+            require('cmp_tabnine.compare'), cmp.config.compare.offset,
+            cmp.config.compare.exact, cmp.config.compare.score,
+            cmp.config.compare.recently_used, cmp.config.compare.kind,
+            cmp.config.compare.sort_text, cmp.config.compare.length,
+            cmp.config.compare.order
+        }
     },
     formatting = {
         format = function(entry, vim_item)
             vim_item.kind = string.format("%s %s", cmp_kinds[vim_item.kind],
                                           vim_item.kind)
-            vim_item.menu = ({
-                buffer = "[Buffer]",
-                nvim_lsp = "[LSP]",
-                luasnip = "[LuaSnip]",
-                nvim_lua = "[Lua]",
-                latex_symbols = "[LaTeX]"
-            })[entry.source.name]
+            vim_item.menu = (source_map)[entry.source.name]
             return vim_item
         end
     },
@@ -53,7 +80,7 @@ cmp.setup({
     }),
     sources = cmp.config.sources({
         {name = 'nvim_lsp'}, {name = 'luasnip'},
-        {name = 'nvim_lsp_signature_help'}
+        {name = 'nvim_lsp_signature_help'}, {name = 'cmp_tabnine'}
     }, {{name = 'buffer'}})
 })
 

@@ -18,10 +18,10 @@ vim.g.loaded = 1
 vim.g.loaded_netrwPlugin = 1
 
 vim.opt_global.listchars = {
-    tab = "▸ ",
     trail = "·",
-    lead = "·",
-    eol = "↲"
+    tab = "▸ "
+    -- lead = "·",
+    -- eol = "↲"
 }
 
 vim.api.nvim_create_autocmd({"BufNewFile", "BufRead"}, {

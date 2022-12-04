@@ -41,6 +41,12 @@ return require("packer").startup(function()
     use "jason0x43/nvim-lsp-ts-utils"
     use "jose-elias-alvarez/null-ls.nvim"
     use "glepnir/lspsaga.nvim"
+    use {
+        "ThePrimeagen/refactoring.nvim",
+        requires = {
+            {"nvim-lua/plenary.nvim"}, {"nvim-treesitter/nvim-treesitter"}
+        }
+    }
 
     -- Auto Complete
     use 'hrsh7th/nvim-cmp'
@@ -50,6 +56,11 @@ return require("packer").startup(function()
     use 'hrsh7th/cmp-cmdline'
     use 'hrsh7th/cmp-nvim-lsp-signature-help'
     use 'saadparwaiz1/cmp_luasnip'
+    use {
+        'tzachar/cmp-tabnine',
+        run = './install.sh',
+        requires = 'hrsh7th/nvim-cmp'
+    }
 
     -- Snippet engine
     use "L3MON4D3/LuaSnip"
