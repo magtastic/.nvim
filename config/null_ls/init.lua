@@ -17,7 +17,6 @@ local sources = {
     }, null_ls.builtins.formatting.isort,
     null_ls.builtins.formatting.lua_format,
     null_ls.builtins.code_actions.eslint_d
-    -- null_ls.builtins.diagnostics.gitlint
     -- TODO: This is really coool but not working. fix plz
     -- null_ls.builtins.code_actions.refactoring,
     -- null_ls.builtins.diagnostics.commitlint
