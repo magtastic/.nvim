@@ -43,6 +43,9 @@ map({NORMAL_MODE}, "<C-o>", function() telescope_builtin.live_grep() end, config
 map({NORMAL_MODE}, "<C-i>", function() telescope_builtin.resume() end, config)
 map({NORMAL_MODE}, "<C-f>", ":Telescope projects<cr>", config)
 
+map({NORMAL_MODE}, "<leader>t",
+    function() require('config/openai').finish_file() end, config)
+
 -- Nvim Tree
 map({NORMAL_MODE}, "<C-n>", ":NvimTreeToggle<cr>", config)
 
@@ -60,6 +63,8 @@ map({NORMAL_MODE, VISUAL_MODE}, "<leader>sr",
 
 -- Github
 map({NORMAL_MODE}, "<leader>gp", ":Telescope gh pull_request<cr>", config)
+map({NORMAL_MODE}, "<leader>gb",
+    function() telescope_builtin.git_branches() end, config)
 
 -- Fugitive
 map({NORMAL_MODE}, "<leader>gg", ":Git<cr>", config)

@@ -41,6 +41,15 @@ lsp_config.sumneko_lua.setup({
     }
 })
 
+-- SQL
+lsp_config.sqlls.setup {
+    capabilities = capabilities,
+    on_attach = function(client)
+        -- disable formatting. Handled by null-ls
+        -- client.server_capabilities.documentFormattingProvider = false
+    end
+}
+
 -- Ruby
 lsp_config.solargraph.setup {
     capabilities = capabilities,

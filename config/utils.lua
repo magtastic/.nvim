@@ -63,6 +63,17 @@ Table.string_flatten = function(tbl)
     return result
 end
 
+Table.combine = function(tables)
+    local combined_table = {}
+
+    for _, argument_table in ipairs(tables) do
+        for _, value in ipairs(argument_table) do
+            table.insert(combined_table, value)
+        end
+    end
+    return combined_table
+end
+
 M.table = Table
 
 local Execute = {}

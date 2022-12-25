@@ -1,12 +1,12 @@
 local null_ls = require('null-ls')
 local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 local python = require('config/null_ls/python_config')
+local local_utils = require('config/utils')
 -- local move_style_code_action = require('config/null_ls/move_style_code_action')
 
--- require('refactoring').setup({})
+require('refactoring').setup({})
 
-local sources = {
-    null_ls.builtins.formatting.prettier, null_ls.builtins.diagnostics.eslint_d,
+local python_sources = {
     null_ls.builtins.formatting.rubocop,
     null_ls.builtins.formatting.black.with {
         extra_args = {"--fast"},
@@ -14,13 +14,24 @@ local sources = {
             local path = vim.fn.fnamemodify(params.bufname, ':h')
             return path
         end
-    }, null_ls.builtins.formatting.isort,
-    null_ls.builtins.formatting.lua_format,
-    null_ls.builtins.code_actions.eslint_d
+    }, null_ls.builtins.formatting.isort
+}
+
+local js_sources = {
+    -- null_ls.builtins.formatting.prettier, null_ls.builtins.diagnostics.eslint_d,
+    -- null_ls.builtins.code_actions.eslint_d
+}
+
+local lua_sources = {null_ls.builtins.formatting.lua_format}
+
+local general_sources = {
     -- TODO: This is really coool but not working. fix plz
     -- null_ls.builtins.code_actions.refactoring,
-    -- null_ls.builtins.diagnostics.commitlint
 }
+
+local sources = local_utils.table.combine({
+    python_sources, js_sources, lua_sources, general_sources
+})
 
 null_ls.setup({
     debug = true,
