@@ -74,6 +74,20 @@ Table.combine = function(tables)
     return combined_table
 end
 
+Table.get_only_item_in_table = function(tbl)
+    local item = nil
+    for _, value in pairs(tbl) do
+        if value ~= nil then
+            if item == nil then
+                item = value
+            else
+                return nil
+            end
+        end
+    end
+    return item
+end
+
 M.table = Table
 
 local Execute = {}
@@ -116,5 +130,14 @@ Execute.file = function()
 end
 
 M.execute = Execute
+
+local FileSystem = {}
+
+FileSystem.exists = function(name)
+    if type(name) ~= "string" then return false end
+    return os.rename(name, name) and true or false
+end
+
+M.file_system = FileSystem
 
 return M

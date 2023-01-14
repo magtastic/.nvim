@@ -1,4 +1,7 @@
+local null_ls = require('null-ls')
+
 local M = {}
+
 local get_whitespace_count = function(input)
     local whitespace_count = 0
     local fixed = input:gsub('^\n', '')
@@ -105,5 +108,16 @@ M.format = function(bufnr)
         end
     end)
 end
+
+M.sources = {
+    --[[ null_ls.builtins.diagnostics.mypy ]]
+    null_ls.builtins.formatting.black.with {
+        extra_args = {"--fast"}
+        -- cwd = function(params)
+        --     local path = vim.fn.fnamemodify(params.bufname, ':h')
+        --     return path
+        -- end
+    }, null_ls.builtins.formatting.isort
+}
 
 return M

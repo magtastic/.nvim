@@ -12,7 +12,6 @@ mason_lspconfig.setup({automatic_installation = true})
 local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp
                                                                       .protocol
                                                                       .make_client_capabilities())
-
 -- Lua
 lsp_config.sumneko_lua.setup({
     on_attach = function(client)
@@ -76,16 +75,16 @@ lsp_config.pyright.setup {
     },
     on_attach = function(client)
         client.server_capabilities.documentFormattingProvider = false
-    end,
-    on_new_config = function(config, root_dir)
-        -- Check if poetry env is active. Add that as python path
-        local env = vim.trim(vim.fn.system(
-                                 'cd "' .. root_dir ..
-                                     '"; poetry env info -p 2>/dev/null'))
-        if string.len(env) > 0 then
-            config.settings.python.pythonPath = env .. '/bin/python'
-        end
     end
+    -- on_new_config = function(config, root_dir)
+    --     -- Check if poetry env is active. Add that as python path
+    --     local env = vim.trim(vim.fn.system(
+    --                              'cd "' .. root_dir ..
+    --                                  '"; poetry env info -p 2>/dev/null'))
+    --     if string.len(env) > 0 then
+    --         config.settings.python.pythonPath = env .. '/bin/python'
+    --     end
+    -- end
 }
 
 -- Tsserver

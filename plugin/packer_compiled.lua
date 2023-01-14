@@ -236,8 +236,13 @@ _G.packer_plugins = {
     path = "/Users/magtastic/.local/share/nvim/site/pack/packer/start/refactoring.nvim",
     url = "https://github.com/ThePrimeagen/refactoring.nvim"
   },
+  ["rust-tools.nvim"] = {
+    loaded = true,
+    path = "/Users/magtastic/.local/share/nvim/site/pack/packer/start/rust-tools.nvim",
+    url = "https://github.com/simrat39/rust-tools.nvim"
+  },
   ["ssr.nvim"] = {
-    config = { "\27LJ\2\nü\1\0\0\4\0\6\0\t6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0005\3\4\0=\3\5\2B\0\2\1K\0\1\0\fkeymaps\1\0\4\15prev_match\6N\15next_match\6n\nclose\6q\16replace_all\17<leader><cr>\1\0\2\14min_width\0032\15min_height\3\5\nsetup\bssr\frequire\0" },
+    config = { "\27LJ\2\nü\1\0\0\4\0\6\0\t6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0005\3\4\0=\3\5\2B\0\2\1K\0\1\0\fkeymaps\1\0\4\nclose\6q\16replace_all\17<leader><cr>\15prev_match\6N\15next_match\6n\1\0\2\15min_height\3\5\14min_width\0032\nsetup\bssr\frequire\0" },
     loaded = false,
     needs_bufread = false,
     only_cond = false,
