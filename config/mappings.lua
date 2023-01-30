@@ -31,6 +31,10 @@ map({NORMAL_MODE}, "<C-l>", ":vertical resize +5<cr>", config)
 -- Swap previous buffer
 map({NORMAL_MODE}, "<leader>e", ":e#<cr>", config)
 
+-- Center when jumping in search
+map({NORMAL_MODE}, "n", "nzz", config)
+map({NORMAL_MODE}, "N", "Nzz", config)
+
 -- Save/Close buggers
 map({NORMAL_MODE}, "<leader>s", ":w<cr>", config)
 map({NORMAL_MODE}, "<leader>x", ":q<cr>", config)
