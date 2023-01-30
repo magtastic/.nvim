@@ -50,6 +50,9 @@ return require("packer").startup(function(use)
         }
     }
     use 'simrat39/rust-tools.nvim'
+    -- GoLang
+    use 'ray-x/go.nvim'
+    use 'ray-x/guihua.lua' -- recommended if need floating window support
 
     -- Auto Complete
     use 'hrsh7th/nvim-cmp'
