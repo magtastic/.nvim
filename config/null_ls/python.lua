@@ -112,12 +112,32 @@ end
 M.sources = {
     --[[ null_ls.builtins.diagnostics.mypy ]]
     null_ls.builtins.formatting.black.with {
-        extra_args = {"--fast"}
-        -- cwd = function(params)
-        --     local path = vim.fn.fnamemodify(params.bufname, ':h')
-        --     return path
-        -- end
-    }, null_ls.builtins.formatting.isort
+        extra_args = function(params)
+            local config_file_path = {}
+            -- If we are in the server repo for smitten, use linters config
+            if params.root:endswith("api/server") then
+                config_file_path = {
+                    "--config",
+                    params.root:replace("api/server",
+                                        "api/linters/pyproject.toml")
+                }
+            end
+            return params.options and {"--fast"} and config_file_path
+        end
+    }, null_ls.builtins.formatting.isort.with {
+        extra_args = function(params)
+            local config_file_path = {}
+            -- If we are in the server repo for smitten, use linters config
+            if params.root:endswith("api/server") then
+                config_file_path = {
+                    "--settings-path",
+                    params.root:replace("api/server",
+                                        "api/linters/pyproject.toml")
+                }
+            end
+            return params.options and config_file_path
+        end
+    }
 }
 
 return M
