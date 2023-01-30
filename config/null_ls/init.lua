@@ -15,7 +15,7 @@ local general_sources = {
 }
 
 local sources = local_utils.table.combine({
-    rust.sources, python.sources, javascript.sources, lua.sources,
+    rust.sources, javascript.sources, lua.sources, python.sources,
     general_sources
 })
 
@@ -24,6 +24,10 @@ local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 null_ls.setup({
     debug = true,
     sources = sources,
+    root_dir = require("null-ls.utils").root_pattern("package.json",
+                                                     "pyproject.toml",
+                                                     ".null-ls-root",
+                                                     "Makefile", ".git"),
     on_attach = function(client, bufnr)
         local current_filetype = vim.bo[bufnr].filetype
 
