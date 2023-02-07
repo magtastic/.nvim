@@ -14,6 +14,7 @@ require "config.rust_tools"
 
 require "config.lualine"
 require "config.telescope"
+-- require "config.copilot_config"
 require "config.cmp"
 require "config.treesitter"
 require "config.autopairs"

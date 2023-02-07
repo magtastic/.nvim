@@ -29,6 +29,7 @@ local PRETTIER_CONFIG_FILES = {
 local ROME_CONFIG_FILES = {"rome.json"}
 
 local js_sources = {
+    require("typescript.extensions.null-ls.code-actions"),
     null_ls.builtins.formatting.prettier.with({
         runtime_condition = function()
             return some_exist_in_root(PRETTIER_CONFIG_FILES)

@@ -8,10 +8,10 @@ local rust = require('config/null_ls/rust')
 
 -- local move_style_code_action = require('config/null_ls/move_style_code_action')
 
+require('refactoring').setup({})
 local general_sources = {
     -- TODO: This is really coool but not working. fix plz
-    -- require('refactoring').setup({})
-    -- null_ls.builtins.code_actions.refactoring,
+    -- null_ls.builtins.code_actions.refactoring
 }
 
 local sources = local_utils.table.combine({
@@ -48,4 +48,10 @@ null_ls.setup({
     end
 })
 
+-- vim.api.nvim_set_keymap("v", "<leader>re",
+--                         [[ <Esc><Cmd>lua require('refactoring').refactor('Extract Function')<CR>]],
+--                         {noremap = true, silent = true, expr = false})
+-- vim.api.nvim_set_keymap("v", "<leader>rf",
+--                         [[ <Esc><Cmd>lua require('refactoring').refactor('Extract Function To File')<CR>]],
+--                         {noremap = true, silent = true, expr = false})
 -- null_ls.register(move_style_code_action)

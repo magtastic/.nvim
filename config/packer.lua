@@ -40,7 +40,7 @@ return require("packer").startup(function(use)
         "williamboman/mason.nvim", "williamboman/mason-lspconfig.nvim",
         "neovim/nvim-lspconfig"
     }
-    use "jason0x43/nvim-lsp-ts-utils"
+    use "jose-elias-alvarez/typescript.nvim"
     use "jose-elias-alvarez/null-ls.nvim"
     use "glepnir/lspsaga.nvim"
     use {
@@ -60,12 +60,25 @@ return require("packer").startup(function(use)
     use 'hrsh7th/cmp-buffer'
     use 'hrsh7th/cmp-path'
     use 'hrsh7th/cmp-cmdline'
-    use 'hrsh7th/cmp-nvim-lsp-signature-help'
     use 'saadparwaiz1/cmp_luasnip'
+    use {"ray-x/lsp_signature.nvim"}
     use {
-        'tzachar/cmp-tabnine',
-        run = './install.sh',
-        requires = 'hrsh7th/nvim-cmp'
+        "zbirenbaum/copilot.lua",
+        cmd = "Copilot",
+        event = "InsertEnter",
+        config = function()
+            require("copilot").setup({
+                suggestion = {enabled = false},
+                panel = {enabled = false}
+            })
+        end
+    }
+    use {
+        "zbirenbaum/copilot-cmp",
+        after = {"copilot.lua", "nvim-cmp"},
+        config = function()
+            require("copilot_cmp").setup({method = "getPanelCompletions"})
+        end
     }
 
     -- Snippet engine
@@ -77,7 +90,7 @@ return require("packer").startup(function(use)
     use "nvim-treesitter/playground"
 
     -- Auto close pairs
-    use "windwp/nvim-ts-autotag"
+    -- use "windwp/nvim-ts-autotag"
     use "windwp/nvim-autopairs"
 
     -- Comments
@@ -132,5 +145,4 @@ return require("packer").startup(function(use)
 
     -- Git
     use "tpope/vim-fugitive"
-
 end)
