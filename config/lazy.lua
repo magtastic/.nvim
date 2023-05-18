@@ -62,6 +62,10 @@ lazy.setup({
     {
         "neovim/nvim-lspconfig",
         dependencies = {
+            {
+                "folke/neodev.nvim",
+                config = function() require("neodev").setup({}) end
+            },
             "williamboman/mason.nvim",
             "williamboman/mason-lspconfig.nvim",
             {
@@ -172,4 +176,3 @@ lazy.setup({
 -- TODO: check out
 -- "folke/which-key.nvim",
 -- { "folke/neoconf.nvim", cmd = "Neoconf" },
--- "folke/neodev.nvim",

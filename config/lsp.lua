@@ -1,10 +1,7 @@
 local mason = require("mason")
 local mason_lspconfig = require("mason-lspconfig")
-local lsp_config = require("lspconfig")
 
-local runtime_path = vim.split(package.path, ";")
-table.insert(runtime_path, "lua/?.lua")
-table.insert(runtime_path, "lua/?/init.lua")
+local lsp_config = require("lspconfig")
 
 mason.setup()
 mason_lspconfig.setup({automatic_installation = true})
@@ -12,13 +9,14 @@ mason_lspconfig.setup({automatic_installation = true})
 local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp
                                                                       .protocol
                                                                       .make_client_capabilities())
+
 require('go').setup({
-    -- other setups ....
+    -- other setups
     lsp_cfg = {
         capabilities = capabilities
         -- other setups
     },
-    lsp_on_attach = function(client)
+    lsp_on_attach = function( --[[ client ]] )
         local format_sync_grp = vim.api.nvim_create_augroup("GoImport", {})
         vim.api.nvim_create_autocmd("BufWritePre", {
             pattern = "*.go",
@@ -29,37 +27,17 @@ require('go').setup({
 })
 
 -- Lua
--- lsp_config.sumneko_lua.setup({
---     on_attach = function(client)
---         -- disable formatting. Handled by null-ls
---         client.server_capabilities.documentFormattingProvider = false
---     end,
---     settings = {
---         Lua = {
---             runtime = {
---                 -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
---                 version = "LuaJIT",
---                 -- Setup your lua path
---                 path = runtime_path
---             },
---             diagnostics = {
---                 -- Get the language server to recognize the `vim` global
---                 globals = {"vim"}
---             },
---             workspace = {
---                 -- Make the server aware of Neovim runtime files
---                 library = vim.api.nvim_get_runtime_file("", true)
---             },
---             -- Do not send telemetry data containing a randomized but unique identifier
---             telemetry = {enable = false}
---         }
---     }
--- })
+lsp_config.lua_ls.setup({
+    on_attach = function(client)
+        -- disable formatting. Handled by null-ls
+        client.server_capabilities.documentFormattingProvider = false
+    end
+})
 
 -- SQL
 lsp_config.sqlls.setup {
     capabilities = capabilities,
-    on_attach = function(client)
+    on_attach = function( --[[ client ]] )
         -- disable formatting. Handled by null-ls
         -- client.server_capabilities.documentFormattingProvider = false
     end

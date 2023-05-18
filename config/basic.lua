@@ -21,9 +21,9 @@ vim.g.loaded_netrwPlugin = 1
 
 vim.opt_global.listchars = {
     trail = "·",
-    tab = "▸ "
-    -- lead = "·",
-    -- eol = "↲"
+    tab = "▸ ",
+    lead = "·",
+    eol = "↲"
 }
 
 vim.api.nvim_set_option_value("colorcolumn", "120",
