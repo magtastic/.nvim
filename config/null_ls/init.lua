@@ -16,7 +16,11 @@ local general_sources = {
 }
 
 local sources = local_utils.table.combine({
-    rust.sources, javascript.sources, lua.sources, python.sources, sql.sources,
+    rust.sources,
+    javascript.sources,
+    lua.sources,
+    python.sources,
+    sql.sources,
     general_sources
 })
 

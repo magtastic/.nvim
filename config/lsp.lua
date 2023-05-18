@@ -108,7 +108,10 @@ lsp_config.tsserver.setup {
     capabilities = capabilities,
     settings = {},
     filetypes = {
-        "typescript", "typescriptreact", "typescript.tsx", "javascript"
+        "typescript",
+        "typescriptreact",
+        "typescript.tsx",
+        "javascript"
     },
     debug = false,
     -- handlers = custom_ts_handler,

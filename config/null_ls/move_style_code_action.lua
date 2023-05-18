@@ -38,12 +38,12 @@ local move_styles_code_action = {
 
                                 for pattern, match, metadata in
                                     query:iter_matches(root, item['bufnr']) do
-                                    print('pattern:')
-                                    print(vim.inspect(pattern))
-                                    print('match:')
-                                    print(vim.inspect(match))
-                                    print('metadata:')
-                                    print(vim.inspect(metadata))
+                                    -- ('pattern:')
+                                    -- (vim.inspect(pattern))
+                                    -- ('match:')
+                                    -- (vim.inspect(match))
+                                    -- ('metadata:')
+                                    -- (vim.inspect(metadata))
                                 end
                             end
 

@@ -5,7 +5,7 @@ local M = {}
 M.move_current_function_to_file = function()
     local arrow_function_node = utils.get_next_arrow_function_node()
     if not arrow_function_node then
-        print("Not in an arrow function...")
+        -- ("Not in an arrow function...")
         return
     end
     local last_import_node = utils.get_last_import_node()

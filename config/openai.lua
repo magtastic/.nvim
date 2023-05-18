@@ -29,7 +29,7 @@ local function set_output_to_popup(output)
     -- popup:on(event.BufLeave, function() popup:unmount() end)
     --
     -- local lines = mysplit(output, "\n")
-    -- print(vim.inspect(lines))
+    -- (vim.inspect(lines))
     --
     -- -- set content
     -- vim.api.nvim_buf_set_lines(popup.bufnr, 0, 1, false, lines)
@@ -51,10 +51,10 @@ local function get_ai_suggestion(filename)
       "presence_penalty": 0
     }' | jq '.choices[0].text'
     ]]
-    print(vim.inspect(command))
+    -- (vim.inspect(command))
     local on_stdout = function(_, output)
-        print('success')
-        print(vim.inspect(output))
+        -- ('success')
+        -- (vim.inspect(output))
     end
     local on_stderr = function(_, output)
         if output == nil or #output == 1 then return end
@@ -104,7 +104,7 @@ return M
 --   } )
 --
 --   if (res.status ~= 200) then
---     print("OpenAI request failed, status: " .. res.status)
+--     ("OpenAI request failed, status: " .. res.status)
 --     return
 --   end
 --
@@ -112,7 +112,7 @@ return M
 --   local response = json.decode(response_body)
 --   local matches = response['choices']
 --   for _, match in pairs(matches) do
---     print(match['text'])
+--     (match['text'])
 --   end
 -- end
 --

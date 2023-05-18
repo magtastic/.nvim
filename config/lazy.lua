@@ -18,30 +18,42 @@ lazy.setup({
         "folke/tokyonight.nvim",
         config = function() vim.cmd [[colorscheme tokyonight]] end
     },
-    'kyazdani42/nvim-web-devicons',
+
     {
         'nvim-lualine/lualine.nvim',
         dependencies = {
             'kyazdani42/nvim-web-devicons' -- optional, for file icons
-        }
+        },
+        config = function() require("config.lualine") end
     },
+
     {
         'kyazdani42/nvim-tree.lua',
         dependencies = {
             'kyazdani42/nvim-web-devicons' -- optional, for file icons
         },
-        version = 'nightly' -- optional, updated every week. (see issue #1193)
+        version = 'nightly',
+        config = function() require("config.tree") end
     },
-    'rcarriga/nvim-notify', -- Telescope
+
+    {'rcarriga/nvim-notify', config = function() require("config.notify") end},
+
+    -- Telescope
     {
         "nvim-telescope/telescope.nvim",
         dependencies = {
             {
                 'nvim-telescope/telescope-fzf-native.nvim',
-                build = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build'
+                build = [[
+                  cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release &&
+                    cmake --build build --config Release &&
+                    cmake --install build --prefix build
+                ]]
             },
             "nvim-lua/plenary.nvim"
-        }
+        },
+        config = function() require("config.telescope") end
+
     },
     "ahmedkhalf/project.nvim",
     'nvim-telescope/telescope-github.nvim',
@@ -52,49 +64,89 @@ lazy.setup({
         dependencies = {
             "williamboman/mason.nvim",
             "williamboman/mason-lspconfig.nvim",
-            "glepnir/lspsaga.nvim",
+            {
+                "glepnir/lspsaga.nvim",
+                config = function() require("config.lspsaga") end
+
+            },
+            'simrat39/rust-tools.nvim',
+            'ray-x/go.nvim', -- GoLang
+            'ray-x/guihua.lua', -- recommended if need floating window support
             {
                 "jose-elias-alvarez/null-ls.nvim",
-                dependencies = {"jose-elias-alvarez/typescript.nvim"}
+                dependencies = {
+                    "jose-elias-alvarez/typescript.nvim",
+                    {
+                        "ThePrimeagen/refactoring.nvim",
+                        dependencies = {
+                            {"nvim-lua/plenary.nvim"},
+                            {"nvim-treesitter/nvim-treesitter"}
+                        }
+                    }
+                },
+                config = function()
+                    require("config.null_ls.init")
+                end
             },
             "nvim-treesitter/nvim-treesitter",
             "nvim-treesitter/playground"
-        }
+        },
+        config = function()
+            require("config.lsp")
+            require("config.rust_tools")
+            require("config.treesitter")
+        end
     },
-    {
-        "ThePrimeagen/refactoring.nvim",
-        dependencies = {
-            {"nvim-lua/plenary.nvim"},
-            {"nvim-treesitter/nvim-treesitter"}
-        }
-    },
-    'simrat39/rust-tools.nvim', -- GoLang
-    'ray-x/go.nvim',
-    'ray-x/guihua.lua', -- recommended if need floating window support
 
     -- Auto Complete
-    'hrsh7th/nvim-cmp',
-    'hrsh7th/cmp-nvim-lsp',
-    'hrsh7th/cmp-buffer',
-    'hrsh7th/cmp-path',
-    'hrsh7th/cmp-cmdline',
-    'saadparwaiz1/cmp_luasnip',
-    {"ray-x/lsp_signature.nvim"},
-    {"zbirenbaum/copilot.lua"},
-    {"zbirenbaum/copilot-cmp"}, -- Snippet engine
-    "L3MON4D3/LuaSnip",
-    "rafamadriz/friendly-snippets", -- Treesitter
+    {
+        'hrsh7th/nvim-cmp',
+        dependencies = {
+
+            'hrsh7th/cmp-nvim-lsp',
+            'hrsh7th/cmp-buffer',
+            'hrsh7th/cmp-path',
+            'hrsh7th/cmp-cmdline',
+            {
+                'saadparwaiz1/cmp_luasnip',
+                config = function()
+                    require("config.luasnip.init")
+                end
+            },
+            "ray-x/lsp_signature.nvim",
+            {
+                "zbirenbaum/copilot.lua",
+                dependencies = {"zbirenbaum/copilot-cmp"},
+                config = function()
+                    require("config.copilot_config")
+                end
+
+            },
+            "L3MON4D3/LuaSnip",
+            "rafamadriz/friendly-snippets" -- Treesitter
+        },
+        config = function() require("config.cmp") end
+    },
 
     -- Auto close pairs
-    "windwp/nvim-autopairs", -- Comments
+    {
+        "windwp/nvim-autopairs",
+        config = function() require("config.autopairs") end
+
+    },
+
+    -- Comments
     {
         "numToStr/Comment.nvim",
         config = function() require("Comment").setup() end
     },
+
     {
         "norcalli/nvim-colorizer.lua",
-        config = function() require"colorizer".setup() end
+        config = function() require("colorizer").setup() end
     },
+
+    -- Structural search and replace
     {
         "cshuaimin/ssr.nvim",
         config = function()
@@ -109,7 +161,8 @@ lazy.setup({
                 }
             }
         end
-    }, -- Structural search and replace
+    },
+
     -- 👑 TPOPE 👑
     "tpope/vim-surround", -- Surround objects
     "tpope/vim-abolish", -- Case Converter

@@ -56,8 +56,9 @@ map({NORMAL_MODE}, "<C-n>", ":NvimTreeToggle<cr>", config)
 -- Remove highlight after search
 map({NORMAL_MODE}, "<leader>/", ":noh<cr>", config)
 
--- Reload
-map({NORMAL_MODE}, "<leader>r", ":source $CONFIG_PATH/nvim/init.lua<cr>", config)
+-- Reload - broken. TODO fix
+-- map({NORMAL_MODE}, "<leader>r", ":source $CONFIG_PATH/nvim/init.lua<cr>", config)
+
 map({NORMAL_MODE}, "<leader><leader>x",
     function() require('config/utils').execute.file() end, config)
 
