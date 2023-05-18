@@ -40,7 +40,7 @@ map({NORMAL_MODE}, "<leader>s", ":w<cr>", config)
 map({NORMAL_MODE}, "<leader>x", ":q<cr>", config)
 
 -- Telescope
-local telescope_builtin = require('telescope.builtin')
+local telescope_builtin = require("telescope.builtin")
 map({NORMAL_MODE}, "<C-p>",
     function() telescope_builtin.find_files({hidden = true}) end, config)
 map({NORMAL_MODE}, "<C-o>", function() telescope_builtin.live_grep() end, config)
@@ -48,7 +48,7 @@ map({NORMAL_MODE}, "<C-i>", function() telescope_builtin.resume() end, config)
 map({NORMAL_MODE}, "<C-f>", ":Telescope projects<cr>", config)
 
 map({NORMAL_MODE}, "<leader>t",
-    function() require('config/openai').finish_file() end, config)
+    function() require("config/openai").finish_file() end, config)
 
 -- Nvim Tree
 map({NORMAL_MODE}, "<C-n>", ":NvimTreeToggle<cr>", config)
@@ -60,7 +60,7 @@ map({NORMAL_MODE}, "<leader>/", ":noh<cr>", config)
 -- map({NORMAL_MODE}, "<leader>r", ":source $CONFIG_PATH/nvim/init.lua<cr>", config)
 
 map({NORMAL_MODE}, "<leader><leader>x",
-    function() require('config/utils').execute.file() end, config)
+    function() require("config/utils").execute.file() end, config)
 
 -- Structural search and replace
 map({NORMAL_MODE, VISUAL_MODE}, "<leader>sr",
@@ -74,6 +74,6 @@ map({NORMAL_MODE}, "<leader>gb",
 -- Fugitive
 map({NORMAL_MODE}, "<leader>gg", ":Git<cr>", config)
 map({NORMAL_MODE}, "<leader>gd",
-    function() require('config/utils').fugitive.toggle_diff() end, config)
+    function() require("config/utils").fugitive.toggle_diff() end, config)
 map({NORMAL_MODE}, "<leader>gh", ":diffget //2<cr>", config)
 map({NORMAL_MODE}, "<leader>gl", ":diffget //3<cr>", config)

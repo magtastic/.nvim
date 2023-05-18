@@ -1,10 +1,10 @@
-local null_ls = require('null-ls')
+local null_ls = require("null-ls")
 
 local M = {}
 
 local get_whitespace_count = function(input)
     local whitespace_count = 0
-    local fixed = input:gsub('^\n', '')
+    local fixed = input:gsub("^\n", "")
 
     for i = 1, #fixed do
         if (string.sub(fixed, i, i) == " ") then
@@ -21,10 +21,10 @@ local potential_sql_beginning = {"SELECT", "UPDATE", "INSERT", "DELETE"}
 
 local format_sql = function(bufnr)
     local edits = {}
-    local language_tree = vim.treesitter.get_parser(bufnr, 'python')
+    local language_tree = vim.treesitter.get_parser(bufnr, "python")
     local syntax_tree = language_tree:parse()
     local root = syntax_tree[1]:root()
-    local query = vim.treesitter.parse_query('python', [[
+    local query = vim.treesitter.parse_query("python", [[
           (
            (string) @sql
           )
@@ -35,27 +35,27 @@ local format_sql = function(bufnr)
         if start_row == end_row then goto continue end
 
         local text = vim.treesitter.get_node_text(node, bufnr)
-        local untrimmed_content = text:gsub('"', '')
+        local untrimmed_content = text:gsub("\"", "")
         local indentation_level = get_whitespace_count(untrimmed_content)
         local indentation_string = string.rep(" ", indentation_level)
         local content = untrimmed_content:gsub("^%s*", "")
         local match = nil
 
         for _, beginning in ipairs(potential_sql_beginning) do
-            match = string.find(content, '^' .. beginning)
+            match = string.find(content, "^" .. beginning)
             if match ~= nil then break end
         end
 
         if match == 1 then
             local cmd = string.format(
-                            'echo "%s" | sql-formatter -c /Users/magtastic/Developer/Smitten/api/test.json',
+                            "echo \"%s\" | sql-formatter -c /Users/magtastic/Developer/Smitten/api/test.json",
                             content)
             local pipe = io.popen(cmd)
             if pipe ~= nil then
                 local formatted_sql = pipe:read("*a"):gsub("\n$", "")
                 local a = indentation_string ..
-                              formatted_sql:gsub('\n',
-                                                 '\n' .. indentation_string)
+                              formatted_sql:gsub("\n",
+                                                 "\n" .. indentation_string)
                 local edit = {
                     range = {
                         ["start"] = {line = start_row + 1, character = 0},
@@ -130,12 +130,14 @@ M.sources = {
             -- If we are in the server repo for smitten, use linters config
             if correct_path then
                 config_file_path = {
-                    "--config", correct_path .. "/pyproject.toml"
+                    "--config",
+                    correct_path .. "/pyproject.toml"
                 }
             end
             return params.options and {"--fast"} and config_file_path
         end
-    }, null_ls.builtins.diagnostics.ruff.with {
+    },
+    null_ls.builtins.diagnostics.ruff.with {
         extra_args = function(params)
             local config_file_path = {}
             local correct_path = get_linter_path_from_root(params.root)
@@ -145,7 +147,8 @@ M.sources = {
             end
             return (params.options or {}) and config_file_path
         end
-    }, null_ls.builtins.formatting.ruff.with {
+    },
+    null_ls.builtins.formatting.ruff.with {
         extra_args = function(params)
             local config_file_path = {}
             -- If we are in the server repo for smitten, use linters config

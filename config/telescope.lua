@@ -13,7 +13,13 @@ require("project_nvim").setup {
     -- All the patterns used to detect root dir, when **"pattern"** is in
     -- detection_methods
     patterns = {
-        ".git", "_darcs", ".hg", ".bzr", ".svn", "Makefile", "package.json"
+        ".git",
+        "_darcs",
+        ".hg",
+        ".bzr",
+        ".svn",
+        "Makefile",
+        "package.json"
     },
 
     -- Table of lsp clients to ignore by name
@@ -35,23 +41,33 @@ require("project_nvim").setup {
     -- * global (default)
     -- * tab
     -- * win
-    scope_chdir = 'global',
+    scope_chdir = "global",
 
     -- Path where project.nvim will store the project history for use in
     -- telescope
     datapath = vim.fn.stdpath("data")
 }
 
-local telescope = require('telescope')
+local telescope = require("telescope")
 
 telescope.setup {
     defaults = {
         file_ignore_patterns = {
-            "node_modules", ".git", "dist", "yarn.lock", "profile_list_images"
+            "node_modules",
+            ".git",
+            "dist",
+            "yarn.lock",
+            "profile_list_images"
         },
         vimgrep_arguments = {
-            "rg", "--color=never", "--no-heading", "--with-filename",
-            "--line-number", "--column", "--smart-case", "--trim" -- add this value
+            "rg",
+            "--color=never",
+            "--no-heading",
+            "--with-filename",
+            "--line-number",
+            "--column",
+            "--smart-case",
+            "--trim" -- add this value
         }
     },
     extensions = {
@@ -65,6 +81,6 @@ telescope.setup {
     }
 }
 
--- telescope.load_extension('projects')
--- telescope.load_extension('fzf')
--- telescope.load_extension('gh')
+telescope.load_extension("projects")
+telescope.load_extension("fzf")
+telescope.load_extension("gh")

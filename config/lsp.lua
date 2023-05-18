@@ -6,11 +6,11 @@ local lsp_config = require("lspconfig")
 mason.setup()
 mason_lspconfig.setup({automatic_installation = true})
 
-local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp
+local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp
                                                                       .protocol
                                                                       .make_client_capabilities())
 
-require('go').setup({
+require("go").setup({
     -- other setups
     lsp_cfg = {
         capabilities = capabilities
@@ -20,7 +20,7 @@ require('go').setup({
         local format_sync_grp = vim.api.nvim_create_augroup("GoImport", {})
         vim.api.nvim_create_autocmd("BufWritePre", {
             pattern = "*.go",
-            callback = function() require('go.format').goimport() end,
+            callback = function() require("go.format").goimport() end,
             group = format_sync_grp
         })
     end
@@ -53,33 +53,7 @@ lsp_config.solargraph.setup {
 }
 
 -- Python
-lsp_config.pyright.setup {
-    capabilities = capabilities,
-    settings = {
-        settings = {
-            python = {
-                analysis = {
-                    -- search subdirectories like src; defaults to true
-                    autoSearchPaths = true,
-                    -- make completion a lot faster, especially when large libaries are imported; auto-import suffers though generally good improvement as completion is not cached like as opposed to vscode defaults to true
-                    useLibraryCodeForTypes = false
-                }
-            }
-        }
-    },
-    on_attach = function(client)
-        client.server_capabilities.documentFormattingProvider = false
-    end
-    -- on_new_config = function(config, root_dir)
-    --     -- Check if poetry env is active. Add that as python path
-    --     local env = vim.trim(vim.fn.system(
-    --                              'cd "' .. root_dir ..
-    --                                  '"; poetry env info -p 2>/dev/null'))
-    --     if string.len(env) > 0 then
-    --         config.settings.python.pythonPath = env .. '/bin/python'
-    --     end
-    -- end
-}
+lsp_config.pyright.setup {capabilities = capabilities}
 
 -- Tsserver
 lsp_config.tsserver.setup {

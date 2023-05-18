@@ -13,13 +13,13 @@ saga.setup({
         -- percentage
         max_height = 0.5,
         keys = {
-            jump_to = 'p',
-            edit = {'o', '<CR>'},
-            vsplit = 's',
-            split = 'i',
-            tabe = 't',
-            quit = {'q', '<ESC>'},
-            close_in_preview = '<ESC>'
+            jump_to = "p",
+            edit = {"o", "<CR>"},
+            vsplit = "s",
+            split = "i",
+            tabe = "t",
+            quit = {"q", "<ESC>"},
+            close_in_preview = "<ESC>"
         }
     },
 
@@ -110,7 +110,7 @@ saga.setup({
         code_action = "💡",
         incoming = " ",
         outgoing = " ",
-        hover = ' ',
+        hover = " ",
         kind = {}
     }
 })

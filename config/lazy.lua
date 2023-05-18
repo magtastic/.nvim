@@ -14,11 +14,11 @@ vim.opt.rtp:prepend(lazypath)
 local lazy = require("lazy")
 lazy.setup({
     {
-        'mfussenegger/nvim-dap',
+        "mfussenegger/nvim-dap",
         dependencies = {
             {
-                'theHamsta/nvim-dap-virtual-text',
-                'rcarriga/nvim-dap-ui',
+                "theHamsta/nvim-dap-virtual-text",
+                "rcarriga/nvim-dap-ui",
                 config = function()
                     require("nvim-dap-virtual-text").setup()
                 end
@@ -32,41 +32,39 @@ lazy.setup({
     },
 
     {
-        'nvim-lualine/lualine.nvim',
+        "nvim-lualine/lualine.nvim",
         config = function() require("config.lualine") end
     },
 
     {
-        'kyazdani42/nvim-tree.lua',
-        version = 'nightly',
+        "kyazdani42/nvim-tree.lua",
+        version = "nightly",
         config = function() require("config.tree") end
     },
 
-    {'rcarriga/nvim-notify', config = function() require("config.notify") end},
+    {"rcarriga/nvim-notify", config = function() require("config.notify") end},
 
     {
-        'kyazdani42/nvim-web-devicons',
+        "kyazdani42/nvim-web-devicons",
         config = function() require("nvim-web-devicons").setup() end
     },
     -- Telescope
     {
         "nvim-telescope/telescope.nvim",
         dependencies = {
+            "nvim-lua/plenary.nvim",
+            "nvim-telescope/telescope-github.nvim",
             {
-                'nvim-telescope/telescope-fzf-native.nvim',
-                build = [[
-                  cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release &&
-                    cmake --build build --config Release &&
-                    cmake --install build --prefix build
-                ]]
+                "nvim-telescope/telescope-fzf-native.nvim",
+                build = "make",
+                lazy = false
             },
-            "nvim-lua/plenary.nvim"
+            "ahmedkhalf/project.nvim"
+
         },
         config = function() require("config.telescope") end
 
     },
-    "ahmedkhalf/project.nvim",
-    'nvim-telescope/telescope-github.nvim',
 
     -- LSP
     {
@@ -90,15 +88,15 @@ lazy.setup({
                 config = function() require("config.lspsaga") end,
                 event = "LspAttach",
                 dependencies = {
-                    'kyazdani42/nvim-web-devicons',
+                    "kyazdani42/nvim-web-devicons",
                     -- Please make sure you install markdown and markdown_inline parser
                     "nvim-treesitter/nvim-treesitter"
                 }
 
             },
-            'simrat39/rust-tools.nvim',
-            'ray-x/go.nvim', -- GoLang
-            'ray-x/guihua.lua', -- recommended if need floating window support
+            "simrat39/rust-tools.nvim",
+            "ray-x/go.nvim", -- GoLang
+            "ray-x/guihua.lua", -- recommended if need floating window support
             {
                 "jose-elias-alvarez/null-ls.nvim",
                 dependencies = {
@@ -127,15 +125,15 @@ lazy.setup({
 
     -- Auto Complete
     {
-        'hrsh7th/nvim-cmp',
+        "hrsh7th/nvim-cmp",
         dependencies = {
-
-            'hrsh7th/cmp-nvim-lsp',
-            'hrsh7th/cmp-buffer',
-            'hrsh7th/cmp-path',
-            'hrsh7th/cmp-cmdline',
+            "hrsh7th/cmp-nvim-lsp",
+            "hrsh7th/cmp-buffer",
+            "hrsh7th/cmp-path",
+            "hrsh7th/cmp-cmdline",
+            "kyazdani42/nvim-web-devicons",
             {
-                'saadparwaiz1/cmp_luasnip',
+                "saadparwaiz1/cmp_luasnip",
                 config = function()
                     require("config.luasnip.init")
                 end
@@ -195,6 +193,3 @@ lazy.setup({
     "tpope/vim-abolish", -- Case Converter
     "tpope/vim-fugitive" -- Git
 })
-
--- TODO: check out
--- "folke/which-key.nvim",

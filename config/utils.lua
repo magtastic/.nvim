@@ -19,7 +19,7 @@ Fugitive.toggle_diff = function()
     else
         local current_buffer_name = vim.api.nvim_buf_get_name(0)
         local has_diff = vim.trim(vim.fn.system(
-                                      'git diff --name-only --diff-filter=U ' ..
+                                      "git diff --name-only --diff-filter=U " ..
                                           current_buffer_name))
         if has_diff ~= "" then
             vim.cmd("Gvdiffsplit!")

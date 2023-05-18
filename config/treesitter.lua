@@ -20,7 +20,7 @@ treesitter.setup {
     -- }
 }
 -- TODO: add to injections file
-vim.treesitter.query.set('python', 'injections', [[
+vim.treesitter.query.set("python", "injections", [[
 (call
   function: (identifier) @_function (#eq? @_function "SQL")
 

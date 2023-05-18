@@ -1,15 +1,15 @@
-local null_ls = require('null-ls')
-local local_utils = require('config/utils')
+local null_ls = require("null-ls")
+local local_utils = require("config/utils")
 
-local python = require('config/null_ls/python')
-local javascript = require('config/null_ls/javascript')
-local lua = require('config/null_ls/lua')
-local rust = require('config/null_ls/rust')
-local sql = require('config/null_ls/sql')
+local python = require("config/null_ls/python")
+local javascript = require("config/null_ls/javascript")
+local lua = require("config/null_ls/lua")
+local rust = require("config/null_ls/rust")
+local sql = require("config/null_ls/sql")
 
 -- local move_style_code_action = require('config/null_ls/move_style_code_action')
 
-require('refactoring').setup({})
+require("refactoring").setup({})
 local general_sources = {
     -- TODO: This is really coool but not working. fix plz
     -- null_ls.builtins.code_actions.refactoring
@@ -19,7 +19,7 @@ local sources = local_utils.table.combine({
     rust.sources,
     javascript.sources,
     lua.sources,
-    python.sources,
+    -- python.sources,
     sql.sources,
     general_sources
 })
@@ -42,7 +42,7 @@ null_ls.setup({
                 group = augroup,
                 buffer = bufnr,
                 callback = function()
-                    if current_filetype == 'python' then
+                    if current_filetype == "python" then
                         python.format(bufnr)
                     else
                         vim.lsp.buf.format()

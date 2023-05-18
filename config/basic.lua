@@ -13,7 +13,7 @@ vim.o.swapfile = false
 vim.o.wrap = false
 vim.o.list = true
 
-vim.api.nvim_command('set exrc')
+vim.api.nvim_command("set exrc")
 
 -- Disable because I use nvim tree
 vim.g.loaded = 1

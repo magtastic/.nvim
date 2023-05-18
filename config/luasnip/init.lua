@@ -1,7 +1,7 @@
 local luasnip = require "luasnip"
 
 luasnip.filetype_extend("typescriptreact", {"javascript"})
-require('luasnip').filetype_extend("javascriptreact", {"html"})
+require("luasnip").filetype_extend("javascriptreact", {"html"})
 vim.api.nvim_set_keymap("i", "<C-E>", "<Plug>luasnip-next-choice", {})
 vim.api.nvim_set_keymap("s", "<C-E>", "<Plug>luasnip-next-choice", {})
 

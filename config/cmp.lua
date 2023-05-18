@@ -1,40 +1,4 @@
-local cmp = require 'cmp'
-
-local cmp_kinds = {
-    Text = "",
-    Method = "",
-    Function = "",
-    Constructor = "",
-    Field = "ﰠ",
-    Variable = "",
-    Class = "ﴯ",
-    Interface = "",
-    Module = "",
-    Property = "ﰠ",
-    Unit = "塞",
-    Value = "",
-    Enum = "",
-    Keyword = "",
-    Snippet = "",
-    Color = "",
-    File = "",
-    Reference = "",
-    Folder = "",
-    EnumMember = "",
-    Constant = "",
-    Struct = "פּ",
-    Event = "",
-    Operator = "",
-    TypeParameter = "",
-    Copilot = ""
-}
-
-local source_map = {
-    buffer = "[]",
-    nvim_lsp = "[]",
-    luasnip = "[]",
-    latex_symbols = "[LaTeX]"
-}
+local cmp = require "cmp"
 
 local has_words_before = function()
     if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then
@@ -48,15 +12,7 @@ end
 
 cmp.setup({
     snippet = {
-        expand = function(args) require('luasnip').lsp_expand(args.body) end
-    },
-    formatting = {
-        format = function(entry, vim_item)
-            vim_item.kind = string.format("%s %s", cmp_kinds[vim_item.kind],
-                                          vim_item.kind)
-            vim_item.menu = (source_map)[entry.source.name]
-            return vim_item
-        end
+        expand = function(args) require("luasnip").lsp_expand(args.body) end
     },
     mapping = cmp.mapping.preset.insert({
         ["<Tab>"] = vim.schedule_wrap(function(fallback)
@@ -80,27 +36,29 @@ cmp.setup({
         })
     }),
     sources = cmp.config.sources({
-        {name = "copilot"}, {name = 'nvim_lsp'}, {name = 'luasnip'}
-    }, {{name = 'buffer'}})
+        {name = "copilot"},
+        {name = "nvim_lsp"},
+        {name = "luasnip"}
+    }, {{name = "buffer"}})
 })
 
 -- -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
-cmp.setup.cmdline(':', {
+cmp.setup.cmdline(":", {
     mapping = cmp.mapping.preset.cmdline(),
-    sources = cmp.config.sources({{name = 'path'}}, {{name = 'cmdline'}})
+    sources = cmp.config.sources({{name = "path"}}, {{name = "cmdline"}})
 })
 
 -- Set configuration for specific filetype.
-cmp.setup.filetype('gitcommit', {
+cmp.setup.filetype("gitcommit", {
     sources = cmp.config.sources({
-        {name = 'cmp_git'} -- You can specify the `cmp_git` source if you were installed it.
-    }, {{name = 'buffer'}})
+        {name = "cmp_git"} -- You can specify the `cmp_git` source if you were installed it.
+    }, {{name = "buffer"}})
 })
 
-for _, v in pairs({'/', '?'}) do
+for _, v in pairs({"/", "?"}) do
     cmp.setup.cmdline(v, {
         mapping = cmp.mapping.preset.cmdline(),
-        sources = {{name = 'buffer'}}
+        sources = {{name = "buffer"}}
     })
 end
 

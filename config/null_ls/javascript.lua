@@ -1,5 +1,5 @@
-local null_ls = require('null-ls')
-local local_utils = require('config/utils')
+local null_ls = require("null-ls")
+local local_utils = require("config/utils")
 
 local some_exist_in_root = function(files)
     local current_working_dir = vim.fn.getcwd()
@@ -17,13 +17,23 @@ end
 local M = {}
 
 local ESLINT_CONFIG_FILES = {
-    ".eslintrc.json", ".eslintrc.js", ".eslintrc", ".eslintrc.toml"
+    ".eslintrc.json",
+    ".eslintrc.js",
+    ".eslintrc",
+    ".eslintrc.toml"
 }
 
 local PRETTIER_CONFIG_FILES = {
-    ".prettierrc", ".prettierrc.json", ".prettierrc.js", ".prettierrc.yml",
-    "prettier.config.js", ".prettierrc.yaml", ".prettierrc.json5",
-    ".prettierrc.cjs", "prettier.config.cjs", ".prettierrc.toml"
+    ".prettierrc",
+    ".prettierrc.json",
+    ".prettierrc.js",
+    ".prettierrc.yml",
+    "prettier.config.js",
+    ".prettierrc.yaml",
+    ".prettierrc.json5",
+    ".prettierrc.cjs",
+    "prettier.config.cjs",
+    ".prettierrc.toml"
 }
 
 local ROME_CONFIG_FILES = {"rome.json"}
@@ -34,16 +44,19 @@ local js_sources = {
         runtime_condition = function()
             return some_exist_in_root(PRETTIER_CONFIG_FILES)
         end
-    }), null_ls.builtins.diagnostics.eslint_d.with({
+    }),
+    null_ls.builtins.diagnostics.eslint_d.with({
         diagnostics_format = "[#{c}] #{m} (#{s})",
         runtime_condition = function()
             return some_exist_in_root(ESLINT_CONFIG_FILES)
         end
-    }), null_ls.builtins.code_actions.eslint_d.with({
+    }),
+    null_ls.builtins.code_actions.eslint_d.with({
         runtime_condition = function()
             return some_exist_in_root(ESLINT_CONFIG_FILES)
         end
-    }), null_ls.builtins.formatting.rome.with({
+    }),
+    null_ls.builtins.formatting.rome.with({
         runtime_condition = function()
             return not some_exist_in_root(PRETTIER_CONFIG_FILES)
         end

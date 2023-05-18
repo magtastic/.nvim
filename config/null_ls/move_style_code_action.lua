@@ -10,22 +10,22 @@ local move_styles_code_action = {
             })
 
             for _, item in ipairs(diagnostics) do
-                if item['code'] == "react-native/no-inline-styles" and
-                    item['row'] == context.range.row then
+                if item["code"] == "react-native/no-inline-styles" and
+                    item["row"] == context.range.row then
                     return {
                         {
                             title = "Move style to StyleSheet",
                             action = function()
                                 local language_tree =
-                                    vim.treesitter.get_parser(item['bufnr'],
-                                                              'tsx')
+                                    vim.treesitter.get_parser(item["bufnr"],
+                                                              "tsx")
                                 local syntax_tree = language_tree:parse()
 
                                 local root = syntax_tree[1]:root()
                                 -- TODO: Fix query. getting error but works fine on
                                 -- https://tree-sitter.github.io/tree-sitter/playground
                                 local query =
-                                    vim.treesitter.parse_query('python', [[
+                                    vim.treesitter.parse_query("python", [[
                                         (variable_declarator
                                           (call_expression
                                             (member_expression
@@ -37,7 +37,7 @@ local move_styles_code_action = {
                                       ]])
 
                                 for pattern, match, metadata in
-                                    query:iter_matches(root, item['bufnr']) do
+                                    query:iter_matches(root, item["bufnr"]) do
                                     -- ('pattern:')
                                     -- (vim.inspect(pattern))
                                     -- ('match:')
