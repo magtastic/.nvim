@@ -3,6 +3,46 @@ local saga = require("lspsaga")
 local map = vim.keymap.set
 local config = {noremap = true, silent = true}
 
+local kind = {
+    [1] = {'File', ' ', 'Tag'},
+    [2] = {'Module', ' ', 'Exception'},
+    [3] = {'Namespace', ' ', 'Include'},
+    [4] = {'Package', ' ', 'Label'},
+    [5] = {'Class', ' ', 'Include'},
+    [6] = {'Method', ' ', 'Function'},
+    [7] = {'Property', ' ', '@property'},
+    [8] = {'Field', ' ', '@field'},
+    [9] = {'Constructor', ' ', '@constructor'},
+    [10] = {'Enum', ' ', '@number'},
+    [11] = {'Interface', ' ', 'Type'},
+    [12] = {'Function', '󰡱 ', 'Function'},
+    [13] = {'Variable', ' ', '@variable'},
+    [14] = {'Constant', ' ', 'Constant'},
+    [15] = {'String', '󰅳 ', 'String'},
+    [16] = {'Number', '󰎠 ', 'Number'},
+    [17] = {'Boolean', ' ', 'Boolean'},
+    [18] = {'Array', '󰅨 ', 'Type'},
+    [19] = {'Object', ' ', 'Type'},
+    [20] = {'Key', ' ', 'Constant'},
+    [21] = {'Null', '󰟢 ', 'Constant'},
+    [22] = {'EnumMember', ' ', 'Number'},
+    [23] = {'Struct', ' ', 'Type'},
+    [24] = {'Event', ' ', 'Constant'},
+    [25] = {'Operator', ' ', 'Operator'},
+    [26] = {'TypeParameter', ' ', 'Type'},
+    -- ccls
+    [252] = {'TypeAlias', ' ', 'Type'},
+    [253] = {'Parameter', ' ', '@parameter'},
+    [254] = {'StaticMethod', ' ', 'Function'},
+    [255] = {'Macro', ' ', 'Macro'},
+    -- for completion sb microsoft!!!
+    [300] = {'Text', '󰭷 ', 'String'},
+    [301] = {'Snippet', ' ', '@variable'},
+    [302] = {'Folder', ' ', 'Title'},
+    [303] = {'Unit', '󰊱 ', 'Number'},
+    [304] = {'Value', ' ', '@variable'}
+}
+
 local NORMAL_MODE = "n"
 
 saga.setup({
@@ -92,46 +132,27 @@ saga.setup({
     symbol_in_winbar = {
         enable = true,
         separator = "  ",
+        ignore_patterns = {},
         hide_keyword = true,
         show_file = true,
         folder_level = 2,
         respect_root = false,
         color_mode = true
+    },
+    ui = {
+        -- This option only works in Neovim 0.9
+        title = true,
+        -- Border type can be single, double, rounded, solid, shadow.
+        border = "single",
+        winblend = 0,
+        expand = "",
+        collapse = "",
+        code_action = "💡",
+        incoming = " ",
+        outgoing = " ",
+        hover = ' ',
+        kind = {}
     }
-    --
-    -- border_style = "rounded", -- "single" | "double" | "rounded" | "bold" | "plus"
-    --
-    -- -- the range of 0 for fully opaque window (disabled) to 100 for fully
-    -- -- transparent background. Values between 0-30 are typically most useful.
-    -- saga_winblend = 0,
-    --
-    -- move_in_saga = {prev = '<C-p>', next = '<C-n>'}, -- when cursor in saga window you config these to move
-    --
-    -- diagnostic_header = {"", "", "", "ﴞ"}, -- Error, Warn, Info, Hint
-    -- -- preview lines of lsp_finder and definition preview
-    -- max_preview_lines = 10,
-    -- -- use emoji lightbulb in default
-    -- code_action_icon = "ﴞ",
-    -- -- if true can press number to execute the codeaction in codeaction window
-    -- code_action_num_shortcut = true,
-    -- -- same as nvim-lightbulb but async
-    -- code_action_lightbulb = {
-    --     enable = true,
-    --     enable_in_insert = true,
-    --     cache_code_action = false,
-    --     sign = false,
-    --     update_time = 150,
-    --     sign_priority = 20,
-    --     virtual_text = true
-    -- },
-    -- -- finder icons
-    -- finder_icons = {def = '  ', ref = '諭 ', link = '  '},
-    -- -- finder do lsp request timeout
-    -- -- if your project big enough or your server very slow
-    -- -- you may need to increase this value
-    -- finder_request_timeout = 1500,
-    -- finder_action_keys = {vsplit = "<CR>", quit = "<ESC>"},
-    -- code_action_keys = {quit = "<Esc>", exec = "<CR>"},
 })
 
 map(NORMAL_MODE, "gD", "<cmd>Lspsaga peek_definition<CR>", config)

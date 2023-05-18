@@ -13,6 +13,18 @@ vim.opt.rtp:prepend(lazypath)
 
 local lazy = require("lazy")
 lazy.setup({
+    {
+        'mfussenegger/nvim-dap',
+        dependencies = {
+            {
+                'theHamsta/nvim-dap-virtual-text',
+                'rcarriga/nvim-dap-ui',
+                config = function()
+                    require("nvim-dap-virtual-text").setup()
+                end
+            }
+        }
+    },
     -- Color Scheme
     {
         "folke/tokyonight.nvim",
@@ -21,23 +33,21 @@ lazy.setup({
 
     {
         'nvim-lualine/lualine.nvim',
-        dependencies = {
-            'kyazdani42/nvim-web-devicons' -- optional, for file icons
-        },
         config = function() require("config.lualine") end
     },
 
     {
         'kyazdani42/nvim-tree.lua',
-        dependencies = {
-            'kyazdani42/nvim-web-devicons' -- optional, for file icons
-        },
         version = 'nightly',
         config = function() require("config.tree") end
     },
 
     {'rcarriga/nvim-notify', config = function() require("config.notify") end},
 
+    {
+        'kyazdani42/nvim-web-devicons',
+        config = function() require("nvim-web-devicons").setup() end
+    },
     -- Telescope
     {
         "nvim-telescope/telescope.nvim",
@@ -64,14 +74,26 @@ lazy.setup({
         dependencies = {
             {
                 "folke/neodev.nvim",
-                dependencies = {"folke/neoconf.nvim", cmd = "Neoconf"},
+                dependencies = {
+                    "folke/neoconf.nvim",
+                    cmd = "Neoconf",
+                    config = function()
+                        require("neoconf").setup({})
+                    end
+                },
                 config = function() require("neodev").setup({}) end
             },
             "williamboman/mason.nvim",
             "williamboman/mason-lspconfig.nvim",
             {
                 "glepnir/lspsaga.nvim",
-                config = function() require("config.lspsaga") end
+                config = function() require("config.lspsaga") end,
+                event = "LspAttach",
+                dependencies = {
+                    'kyazdani42/nvim-web-devicons',
+                    -- Please make sure you install markdown and markdown_inline parser
+                    "nvim-treesitter/nvim-treesitter"
+                }
 
             },
             'simrat39/rust-tools.nvim',
