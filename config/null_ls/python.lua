@@ -109,33 +109,53 @@ M.format = function(bufnr)
     end)
 end
 
+local KNOWN_API_ROOTS = {"api/server", "api/scripts/python"}
+
+local get_linter_path_from_root = function(root)
+    for _key, value in pairs(KNOWN_API_ROOTS) do
+        if root:endswith(value) then
+            return root:replace(value, "api/linters")
+        end
+    end
+    return nil
+end
+
 M.sources = {
     --[[ null_ls.builtins.diagnostics.mypy ]]
     null_ls.builtins.formatting.black.with {
+        extra_args = function(params)
+            local config_file_path = {}
+            local correct_path = get_linter_path_from_root(params.root)
+
+            -- If we are in the server repo for smitten, use linters config
+            if correct_path then
+                config_file_path = {
+                    "--config", correct_path .. "/pyproject.toml"
+                }
+            end
+            return params.options and {"--fast"} and config_file_path
+        end
+    }, null_ls.builtins.diagnostics.ruff.with {
+        extra_args = function(params)
+            local config_file_path = {}
+            local correct_path = get_linter_path_from_root(params.root)
+            -- If we are in the server repo for smitten, use linters config
+            if correct_path then
+                config_file_path = {"--config", correct_path .. "/ruff.toml"}
+            end
+            return (params.options or {}) and config_file_path
+        end
+    }, null_ls.builtins.formatting.ruff.with {
         extra_args = function(params)
             local config_file_path = {}
             -- If we are in the server repo for smitten, use linters config
             if params.root:endswith("api/server") then
                 config_file_path = {
                     "--config",
-                    params.root:replace("api/server",
-                                        "api/linters/pyproject.toml")
+                    params.root:replace("api/server", "api/linters/ruff.toml")
                 }
             end
-            return params.options and {"--fast"} and config_file_path
-        end
-    }, null_ls.builtins.formatting.isort.with {
-        extra_args = function(params)
-            local config_file_path = {}
-            -- If we are in the server repo for smitten, use linters config
-            if params.root:endswith("api/server") then
-                config_file_path = {
-                    "--settings-path",
-                    params.root:replace("api/server",
-                                        "api/linters/pyproject.toml")
-                }
-            end
-            return params.options and config_file_path
+            return (params.options or {}) and config_file_path
         end
     }
 }

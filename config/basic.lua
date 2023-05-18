@@ -1,4 +1,4 @@
-vim.g.termguicolors = true
+vim.opt.termguicolors = true
 
 vim.g.mapleader = " "
 
@@ -26,9 +26,12 @@ vim.opt_global.listchars = {
     -- eol = "↲"
 }
 
+vim.api.nvim_set_option_value("colorcolumn", "120",
+                              {ctermbg = lightgrey, guibg = lightgrey})
+
 vim.api.nvim_create_autocmd({"BufNewFile", "BufRead"}, {
     pattern = {"Podfile", "*.podspec"},
     command = "set filetype=ruby"
 })
-vim.cmd [[colorscheme tokyonight-night]]
+
 -- require('github-theme').setup()

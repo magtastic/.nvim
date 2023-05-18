@@ -3,9 +3,10 @@ for k, _ in pairs(package.loaded) do
 end
 
 require "config.basic"
-require "config.mappings"
 
-require "config.packer"
+require "config.lazy"
+
+require "config.mappings"
 
 require "config.lsp"
 require "config.lspsaga"
@@ -14,7 +15,7 @@ require "config.rust_tools"
 
 require "config.lualine"
 require "config.telescope"
--- require "config.copilot_config"
+require "config.copilot_config"
 require "config.cmp"
 require "config.treesitter"
 require "config.autopairs"

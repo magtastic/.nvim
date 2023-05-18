@@ -45,7 +45,7 @@ local js_sources = {
         end
     }), null_ls.builtins.formatting.rome.with({
         runtime_condition = function()
-            return some_exist_in_root(ROME_CONFIG_FILES)
+            return not some_exist_in_root(PRETTIER_CONFIG_FILES)
         end
     })
 }

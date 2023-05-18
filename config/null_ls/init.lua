@@ -5,6 +5,7 @@ local python = require('config/null_ls/python')
 local javascript = require('config/null_ls/javascript')
 local lua = require('config/null_ls/lua')
 local rust = require('config/null_ls/rust')
+local sql = require('config/null_ls/sql')
 
 -- local move_style_code_action = require('config/null_ls/move_style_code_action')
 
@@ -15,7 +16,7 @@ local general_sources = {
 }
 
 local sources = local_utils.table.combine({
-    rust.sources, javascript.sources, lua.sources, python.sources,
+    rust.sources, javascript.sources, lua.sources, python.sources, sql.sources,
     general_sources
 })
 

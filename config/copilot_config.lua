@@ -1,8 +1,7 @@
--- vim.defer_fn(function()
---     vim.cmd('packadd copilot')
---     require("copilot").setup({
---         suggestion = {enabled = false},
---         panel = {enabled = false}
---     })
---     require("copilot_cmp").setup()
--- end, 100)
+vim.defer_fn(function()
+    require('copilot').setup({
+        panel = {enabled = false},
+        suggestion = {enabled = false}
+    })
+    require("copilot_cmp").setup()
+end, 100)

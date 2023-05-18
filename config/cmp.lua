@@ -61,13 +61,17 @@ cmp.setup({
     mapping = cmp.mapping.preset.insert({
         ["<Tab>"] = vim.schedule_wrap(function(fallback)
             if cmp.visible() and has_words_before() then
-                cmp.select_next_item({behavior = cmp.SelectBehavior.Select})
+                cmp.select_next_item({
+                    behavior = cmp.SelectBehavior.Select,
+                    select = true
+                })
             else
                 fallback()
             end
         end),
         ["<S-Tab>"] = cmp.mapping.select_prev_item({
-            behavior = cmp.SelectBehavior.Select
+            behavior = cmp.SelectBehavior.Select,
+            select = true
         }),
         ["<CR>"] = cmp.mapping.confirm({
             -- this is the important line
