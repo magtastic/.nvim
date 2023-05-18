@@ -95,11 +95,25 @@ lazy.setup({
 
             },
             "simrat39/rust-tools.nvim",
-            "ray-x/go.nvim", -- GoLang
-            "ray-x/guihua.lua", -- recommended if need floating window support
             {
                 "jose-elias-alvarez/null-ls.nvim",
                 dependencies = {
+                    {
+                        "lewis6991/gitsigns.nvim",
+                        config = function()
+                            require("gitsigns").setup({
+                                current_line_blame = true,
+                                current_line_blame_opts = {
+                                    virt_text = true,
+                                    virt_text_pos = "eol", -- 'eol' | 'overlay' | 'right_align'
+                                    delay = 2000,
+                                    ignore_whitespace = false
+                                },
+                                current_line_blame_formatter = "<author>, <author_time:%Y-%m-%d> - <summary>"
+
+                            })
+                        end
+                    },
                     "jose-elias-alvarez/typescript.nvim",
                     {
                         "ThePrimeagen/refactoring.nvim",
@@ -131,6 +145,7 @@ lazy.setup({
             "hrsh7th/cmp-buffer",
             "hrsh7th/cmp-path",
             "hrsh7th/cmp-cmdline",
+            "onsails/lspkind.nvim",
             "kyazdani42/nvim-web-devicons",
             {
                 "saadparwaiz1/cmp_luasnip",
@@ -138,7 +153,6 @@ lazy.setup({
                     require("config.luasnip.init")
                 end
             },
-            "ray-x/lsp_signature.nvim",
             {
                 "zbirenbaum/copilot.lua",
                 dependencies = {"zbirenbaum/copilot-cmp"},
@@ -151,6 +165,11 @@ lazy.setup({
             "rafamadriz/friendly-snippets" -- Treesitter
         },
         config = function() require("config.cmp") end
+    },
+
+    {
+        "ray-x/lsp_signature.nvim",
+        config = function() require"lsp_signature".setup() end
     },
 
     -- Auto close pairs

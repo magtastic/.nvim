@@ -11,6 +11,7 @@ local sql = require("config/null_ls/sql")
 
 require("refactoring").setup({})
 local general_sources = {
+    -- null_ls.builtins.code_actions.gitsigns
     -- TODO: This is really coool but not working. fix plz
     -- null_ls.builtins.code_actions.refactoring
 }
@@ -19,7 +20,7 @@ local sources = local_utils.table.combine({
     rust.sources,
     javascript.sources,
     lua.sources,
-    -- python.sources,
+    python.sources,
     sql.sources,
     general_sources
 })

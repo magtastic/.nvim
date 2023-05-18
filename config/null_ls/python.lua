@@ -121,8 +121,22 @@ local get_linter_path_from_root = function(root)
 end
 
 M.sources = {
-    --[[ null_ls.builtins.diagnostics.mypy ]]
+    null_ls.builtins.formatting.ruff.with {
+        prefer_local = ".venv/bin",
+        extra_args = function(params)
+            local config_file_path = {}
+            -- If we are in the server repo for smitten, use linters config
+            if params.root:endswith("api/server") then
+                config_file_path = {
+                    "--config",
+                    params.root:replace("api/server", "api/linters/ruff.toml")
+                }
+            end
+            return (params.options or {}) and config_file_path
+        end
+    },
     null_ls.builtins.formatting.black.with {
+        prefer_local = ".venv/bin",
         extra_args = function(params)
             local config_file_path = {}
             local correct_path = get_linter_path_from_root(params.root)
@@ -138,25 +152,13 @@ M.sources = {
         end
     },
     null_ls.builtins.diagnostics.ruff.with {
+        prefer_local = ".venv/bin",
         extra_args = function(params)
             local config_file_path = {}
             local correct_path = get_linter_path_from_root(params.root)
             -- If we are in the server repo for smitten, use linters config
             if correct_path then
                 config_file_path = {"--config", correct_path .. "/ruff.toml"}
-            end
-            return (params.options or {}) and config_file_path
-        end
-    },
-    null_ls.builtins.formatting.ruff.with {
-        extra_args = function(params)
-            local config_file_path = {}
-            -- If we are in the server repo for smitten, use linters config
-            if params.root:endswith("api/server") then
-                config_file_path = {
-                    "--config",
-                    params.root:replace("api/server", "api/linters/ruff.toml")
-                }
             end
             return (params.options or {}) and config_file_path
         end

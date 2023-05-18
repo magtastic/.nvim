@@ -10,22 +10,6 @@ local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp
                                                                       .protocol
                                                                       .make_client_capabilities())
 
-require("go").setup({
-    -- other setups
-    lsp_cfg = {
-        capabilities = capabilities
-        -- other setups
-    },
-    lsp_on_attach = function( --[[ client ]] )
-        local format_sync_grp = vim.api.nvim_create_augroup("GoImport", {})
-        vim.api.nvim_create_autocmd("BufWritePre", {
-            pattern = "*.go",
-            callback = function() require("go.format").goimport() end,
-            group = format_sync_grp
-        })
-    end
-})
-
 -- Lua
 lsp_config.lua_ls.setup({
     on_attach = function(client)
@@ -53,7 +37,13 @@ lsp_config.solargraph.setup {
 }
 
 -- Python
-lsp_config.pyright.setup {capabilities = capabilities}
+lsp_config.pyright.setup {
+    capabilities = capabilities,
+    on_attach = function(client)
+        -- disable formatting. Handled by null-ls
+        client.server_capabilities.documentFormattingProvider = false
+    end
+}
 
 -- Tsserver
 lsp_config.tsserver.setup {

@@ -47,6 +47,8 @@
         "/Users/magtastic/.local/share/nvim/lazy/neoconf.nvim/types",
         "/Users/magtastic/.local/share/nvim/lazy/neoconf.nvim/types/lua",
         "${3rd}/OpenResty/library",
+        "${3rd}/luv/library",
+        "${3rd}/luv/library",
         "${3rd}/luv/library"
     ]
 }

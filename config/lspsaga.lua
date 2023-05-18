@@ -22,7 +22,6 @@ saga.setup({
             close_in_preview = "<ESC>"
         }
     },
-
     definition = {
         edit = "<C-c>o",
         vsplit = "<C-c>v",
@@ -78,16 +77,25 @@ saga.setup({
         virtual_text = true
     },
     diagnostic = {
+        on_insert = false,
+        on_insert_follow = false,
+        insert_winblend = 0,
         show_code_action = true,
         show_source = true,
         jump_num_shortcut = true,
-        -- 1 is max
         max_width = 0.7,
-        custom_fix = nil,
-        custom_msg = nil,
-        text_hl_follow = false,
+        max_height = 0.6,
+        max_show_width = 0.9,
+        max_show_height = 0.6,
+        text_hl_follow = true,
         border_follow = true,
-        keys = {exec_action = "o", quit = "q", go_action = "g"}
+        extend_relatedInformation = false,
+        keys = {
+            exec_action = "o",
+            quit = "q",
+            expand_or_jump = "<CR>",
+            quit_in_show = {"q", "<ESC>"}
+        }
     },
     symbol_in_winbar = {
         enable = true,
