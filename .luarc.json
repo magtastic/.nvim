@@ -2,7 +2,7 @@
 	"$schema": "https://raw.githubusercontent.com/sumneko/vscode-lua/master/setting/schema.json",
 	"Lua": {
 		"diagnostics": {
-			"globals": ["use", "first_line", "ngx", "lightgrey"]
+			"globals": ["vim", "use", "first_line", "ngx", "lightgrey"]
 		},
 		"runtime": {
 			"version": "LuaJIT"
@@ -64,7 +64,9 @@
 				"/Users/magtastic/.local/share/nvim/site/pack/packer/start/playground/after",
 				"/Users/magtastic/.config/nvim/after", "${3rd}/OpenResty/library",
 				"${3rd}/library/luv"
-			]
+			],
+			"maxPreload": 5000,
+			"preloadFileSize": 10000
 		}
 	}
 }
