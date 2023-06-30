@@ -126,7 +126,9 @@ M.sources = {
         extra_args = function(params)
             local config_file_path = {}
             -- If we are in the server repo for smitten, use linters config
-            if params.root:endswith("api/server") then
+            if params.root:endswith("api/server") or
+                params.root:endswith("api/shared") or
+                params.root:endswith("api/ops") then
                 config_file_path = {
                     "--config",
                     params.root:replace("api/server", "api/linters/ruff.toml")

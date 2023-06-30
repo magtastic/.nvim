@@ -13,6 +13,12 @@ vim.opt.rtp:prepend(lazypath)
 
 local lazy = require("lazy")
 lazy.setup({
+    -- Quick Fix
+    {
+        "kevinhwang91/nvim-bqf",
+        ft = "qf",
+        config = function() require("config.bqf") end
+    },
     {
         "mfussenegger/nvim-dap",
         dependencies = {
@@ -204,6 +210,16 @@ lazy.setup({
                     replace_all = "<leader><cr>"
                 }
             }
+        end
+    },
+
+    {
+        "nvim-pack/nvim-spectre",
+        config = function()
+            require("spectre").setup()
+            vim.keymap.set("n", "<leader>S",
+                           "<cmd>lua require(\"spectre\").open()<CR>",
+                           {desc = "Open Spectre"})
         end
     },
 

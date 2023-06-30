@@ -28,6 +28,12 @@ map({NORMAL_MODE}, "<C-j>", ":resize +5<cr>", config)
 map({NORMAL_MODE}, "<C-k>", ":resize -5<cr>", config)
 map({NORMAL_MODE}, "<C-l>", ":vertical resize +5<cr>", config)
 
+-- Move lines
+-- map({NORMAL_MODE}, "m", ":m .+1<CR>==", config)
+-- map({NORMAL_MODE}, "M", ":m .-2<CR>==", config)
+-- map({VISUAL_MODE}, "m", ":m '>+1<CR>gv=gv", config)
+-- map({VISUAL_MODE}, "M", ":m '<-2<CR>gv=gv", config)
+
 -- Swap previous buffer
 map({NORMAL_MODE}, "<leader>e", ":e#<cr>", config)
 
