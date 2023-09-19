@@ -15,6 +15,21 @@ lsp_config.lua_ls.setup({
     on_attach = function(client)
         -- disable formatting. Handled by null-ls
         client.server_capabilities.documentFormattingProvider = false
+    end,
+  settings = {
+    Lua = {
+      diagnostics = {
+        -- Get the language server to recognize the `vim` global
+        globals = {'vim'},
+      },
+    },
+  },
+})
+
+lsp_config.sourcekit.setup({
+    on_attach = function(client)
+        -- disable formatting. Handled by null-ls
+        client.server_capabilities.documentFormattingProvider = false
     end
 })
 
@@ -24,15 +39,6 @@ lsp_config.sqlls.setup {
     on_attach = function( --[[ client ]] )
         -- disable formatting. Handled by null-ls
         -- client.server_capabilities.documentFormattingProvider = false
-    end
-}
-
--- Ruby
-lsp_config.solargraph.setup {
-    capabilities = capabilities,
-    on_attach = function(client)
-        -- disable formatting. Handled by null-ls
-        client.server_capabilities.documentFormattingProvider = false
     end
 }
 

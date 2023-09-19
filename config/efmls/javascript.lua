@@ -56,7 +56,7 @@ local js_sources = {
             return some_exist_in_root(ESLINT_CONFIG_FILES)
         end
     }),
-    null_ls.builtins.formatting.rome.with({
+    null_ls.builtins.formatting.biome.with({
         runtime_condition = function()
             return not some_exist_in_root(PRETTIER_CONFIG_FILES)
         end

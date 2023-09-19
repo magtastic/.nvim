@@ -22,7 +22,7 @@ local config = {
     reload_on_bufenter = false,
     respect_buf_cwd = true,
     on_attach = on_attach,
-    remove_keymaps = false,
+    -- remove_keymaps = false,
     select_prompts = false,
     view = {
         centralize_selection = false,
@@ -35,7 +35,6 @@ local config = {
         number = false,
         relativenumber = false,
         signcolumn = "yes",
-        mappings = {custom_only = false},
         float = {
             enable = false,
             quit_on_focus_loss = true,
