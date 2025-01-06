@@ -2,8 +2,9 @@
 --     if string.match(k, "config/") then package.loaded[k] = nil end
 -- end
 
-require "config.basic"
+require("config.basic")
 
-require "config.lazy"
+require("config.lazy")
 
-require "config.mappings"
+require("config.mappings")
+
