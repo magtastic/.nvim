@@ -109,9 +109,10 @@ lazy.setup({
 			"williamboman/mason.nvim",
 			"williamboman/mason-lspconfig.nvim",
 			{
-				"glepnir/lspsaga.nvim",
+				"nvimdev/lspsaga.nvim",
 				config = function()
 					-- require("config.lspsaga")
+					-- require("lspsaga").setup({})
 				end,
 				event = "LspAttach",
 				dependencies = {
