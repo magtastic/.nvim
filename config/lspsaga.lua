@@ -61,8 +61,9 @@ saga.setup({
         }
     },
     code_action = {
+        sign = false,
         num_shortcut = true,
-        show_server_name = false,
+        show_server_name = true,
         keys = {
             -- string | table type
             quit = "q",
@@ -126,7 +127,7 @@ saga.setup({
 map(NORMAL_MODE, "gD", "<cmd>Lspsaga peek_definition<CR>", config)
 map(NORMAL_MODE, "gd", vim.lsp.buf.definition, config)
 map(NORMAL_MODE, "gi", vim.lsp.buf.implementation, config)
-map(NORMAL_MODE, "gr", "<cmd>Lspsaga lsp_finder<CR>", config)
+map(NORMAL_MODE, "gr", "<cmd>Lspsaga finder<CR>", config)
 map(NORMAL_MODE, "K", "<cmd>Lspsaga hover_doc<CR>", config)
 map(NORMAL_MODE, "<leader>rn", "<cmd>Lspsaga rename<CR>", config)
 map(NORMAL_MODE, "<leader>ca", "<cmd>Lspsaga code_action<CR>", config)

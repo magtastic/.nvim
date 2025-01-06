@@ -1,21 +1,34 @@
 local lsp_config = require("lspconfig")
 local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
+-- Got an LSP for this, Biome formatting emojis incorrectly for some reason
 local biome = require("efmls-configs.formatters.biome")
+local eslint_d = require("efmls-configs.linters.eslint_d")
+-- local eslint_d_formatter = require("efmls-configs.formatters.eslint_d")
+
 local languages = require("efmls-configs.defaults").languages()
+
 languages = vim.tbl_extend("force", languages, {
 	-- Custom languages, or override existing ones
 	typescript = {
 		biome,
+		eslint_d,
+		-- eslint_d_formatter,
 	},
 	javascript = {
 		biome,
+		eslint_d,
+		-- eslint_d_formatter,
 	},
 	typescriptreact = {
 		biome,
+		eslint_d,
+		-- eslint_d_formatter,
 	},
 	javascriptreact = {
 		biome,
+		eslint_d,
+		-- eslint_d_formatter,
 	},
 })
 

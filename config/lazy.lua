@@ -14,11 +14,18 @@ vim.opt.rtp:prepend(lazypath)
 local lazy = require("lazy")
 lazy.setup({
 	-- Quick Fix
+
 	{
 		"kevinhwang91/nvim-bqf",
 		ft = "qf",
 		config = function()
 			require("config.bqf")
+		end,
+	},
+	{
+		"dmmulroy/ts-error-translator.nvim",
+		config = function()
+			require("ts-error-translator").setup()
 		end,
 	},
 	{
@@ -46,8 +53,9 @@ lazy.setup({
 		end,
 	},
 	{
-		"kyazdani42/nvim-tree.lua",
-		version = "nightly",
+		"nvim-tree/nvim-tree.lua",
+		version = "*",
+		lazy = false,
 		config = function()
 			require("config.tree")
 		end,
@@ -103,7 +111,7 @@ lazy.setup({
 			{
 				"glepnir/lspsaga.nvim",
 				config = function()
-					require("config.lspsaga")
+					-- require("config.lspsaga")
 				end,
 				event = "LspAttach",
 				dependencies = {
@@ -146,6 +154,8 @@ lazy.setup({
 			require("config.treesitter")
 		end,
 	}, -- Auto Complete
+	"github/copilot.vim",
+	"L3MON4D3/LuaSnip",
 	{
 		"hrsh7th/nvim-cmp",
 		dependencies = {
@@ -155,20 +165,7 @@ lazy.setup({
 			"hrsh7th/cmp-cmdline",
 			"onsails/lspkind.nvim",
 			"kyazdani42/nvim-web-devicons",
-			{
-				"saadparwaiz1/cmp_luasnip",
-				config = function()
-					require("config.luasnip.init")
-				end,
-			},
-			{
-				"zbirenbaum/copilot.lua",
-				dependencies = { "zbirenbaum/copilot-cmp" },
-				config = function()
-					require("config.copilot_config")
-				end,
-			},
-			"L3MON4D3/LuaSnip",
+			"saadparwaiz1/cmp_luasnip",
 			"rafamadriz/friendly-snippets", -- Treesitter
 		},
 		config = function()

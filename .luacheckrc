@@ -1,4 +1,3 @@
 std = {
-   read_globals = {"vim", "require"} -- these globals can only be accessed.
+	globals = { "vim", "require" }, -- these globals can only be accessed.
 }
-

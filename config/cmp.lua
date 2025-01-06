@@ -55,7 +55,7 @@ cmp.setup({
         expand = function(args) require("luasnip").lsp_expand(args.body) end
     },
     mapping = cmp.mapping.preset.insert({
-        ["<Tab>"] = vim.schedule_wrap(function(fallback)
+        ["<C-j>"] = vim.schedule_wrap(function(fallback)
             if cmp.visible() and has_words_before() then
                 cmp.select_next_item({
                     behavior = cmp.SelectBehavior.Select,
@@ -65,7 +65,7 @@ cmp.setup({
                 fallback()
             end
         end),
-        ["<S-Tab>"] = cmp.mapping.select_prev_item({
+        ["<C-k>"] = cmp.mapping.select_prev_item({
             behavior = cmp.SelectBehavior.Select,
             select = true
         }),
