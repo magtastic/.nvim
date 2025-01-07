@@ -15,6 +15,9 @@ vim.o.list = true
 
 vim.api.nvim_command("set exrc")
 
+-- Diagnostics handled by "rachartier/tiny-inline-diagnostic.nvim" (plugin)
+vim.diagnostic.config({ virtual_text = false })
+
 -- Disable because I use nvim tree
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1

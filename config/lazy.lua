@@ -157,6 +157,15 @@ lazy.setup({
 			},
 		},
 	},
+	{
+		"rachartier/tiny-inline-diagnostic.nvim",
+		event = "VeryLazy", -- Or `LspAttach`
+		priority = 1000, -- needs to be loaded in first
+		config = function()
+			-- Not sure if this is good or not. Only showing on hover currently...
+			require("tiny-inline-diagnostic").setup()
+		end,
+	},
 	--   {
 	--   "mfussenegger/nvim-lint",
 	--   event = {
