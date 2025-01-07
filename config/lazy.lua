@@ -28,18 +28,7 @@ lazy.setup({
 			require("ts-error-translator").setup()
 		end,
 	},
-	{
-		"mfussenegger/nvim-dap",
-		dependencies = {
-			{
-				"theHamsta/nvim-dap-virtual-text",
-				"rcarriga/nvim-dap-ui",
-				config = function()
-					require("nvim-dap-virtual-text").setup()
-				end,
-			},
-		},
-	}, -- Color Scheme
+	-- Color Scheme
 	{
 		"folke/tokyonight.nvim",
 		config = function()
@@ -263,16 +252,7 @@ lazy.setup({
 	{
 		"cshuaimin/ssr.nvim",
 		config = function()
-			require("ssr").setup({
-				min_width = 50,
-				min_height = 5,
-				keymaps = {
-					close = "q",
-					next_match = "n",
-					prev_match = "N",
-					replace_all = "<leader><cr>",
-				},
-			})
+			require("ssr").setup()
 		end,
 	},
 	{
