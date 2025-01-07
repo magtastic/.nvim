@@ -117,23 +117,12 @@ lazy.setup({
 				}
 			end,
 			formatters_by_ft = {
-				javascript = { "prettier" },
-				typescript = { "prettier" },
-				javascriptreact = { "prettier" },
-				typescriptreact = { "prettier" },
-				svelte = { "prettier" },
-				css = { "prettier" },
-				html = { "prettier" },
-				json = { "prettier" },
-				yaml = { "prettier" },
-				markdown = { "prettier" },
-				graphql = { "prettier" },
+				javascript = { "biome-check" },
+				typescript = { "biome-check" },
+				javascriptreact = { "biome-check" },
+				typescriptreact = { "biome-check" },
+				json = { "biome-check" },
 				lua = { "stylua" },
-				python = { "black" },
-				rust = { "rustfmt" },
-				go = { "gofmt" },
-				c = { "clang-format" },
-				cpp = { "clang-format" },
 			},
 		},
 	},
@@ -168,21 +157,27 @@ lazy.setup({
 	--   end,
 	-- },
 	{
+		"folke/lazydev.nvim",
+		ft = "lua", -- only load on lua files
+		opts = {
+			library = {
+				vim.env.VIMRUNTIME,
+				-- See the configuration section for more details
+				-- Load luvit types when the `vim.uv` word is found
+				{ path = "${3rd}/luv/library", words = { "vim%.uv" } },
+			},
+		},
+	},
+	{
+		"folke/neoconf.nvim",
+		cmd = "Neoconf",
+		config = function()
+			require("neoconf").setup({})
+		end,
+	},
+	{
 		"neovim/nvim-lspconfig",
 		dependencies = {
-			{
-				"folke/neodev.nvim",
-				dependencies = {
-					"folke/neoconf.nvim",
-					cmd = "Neoconf",
-					config = function()
-						require("neoconf").setup({})
-					end,
-				},
-				config = function()
-					require("neodev").setup({})
-				end,
-			},
 			"williamboman/mason.nvim",
 			"williamboman/mason-lspconfig.nvim",
 			{
