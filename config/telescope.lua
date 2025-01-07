@@ -14,12 +14,6 @@ require("project_nvim").setup {
     -- detection_methods
     patterns = {
         ".git",
-        "_darcs",
-        ".hg",
-        ".bzr",
-        ".svn",
-        "Makefile",
-        "package.json"
     },
 
     -- Table of lsp clients to ignore by name
