@@ -7,6 +7,7 @@ local eslint_d = require("efmls-configs.linters.eslint_d")
 -- local eslint_d_formatter = require("efmls-configs.formatters.eslint_d")
 
 local languages = require("efmls-configs.defaults").languages()
+print("Runnig this")
 
 languages = vim.tbl_extend("force", languages, {
 	-- Custom languages, or override existing ones

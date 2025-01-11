@@ -92,3 +92,12 @@ lsp_config.ts_ls.setup({
 		client.server_capabilities.documentFormattingProvider = false
 	end,
 })
+
+lsp_config.biome.setup({
+	filetypes = {
+		"typescript",
+		"typescriptreact",
+		"typescript.tsx",
+		"javascript",
+	},
+})

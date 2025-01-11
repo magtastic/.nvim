@@ -82,67 +82,7 @@ lazy.setup({
 	{
 		"stevearc/conform.nvim",
 		config = function()
-			require("conform").formatters.ruff_format = {
-				prepend_args = function(self, ctx)
-					local root_dir = require("conform.util").root_file(".git")(self, ctx)
-
-					-- Check if in smitten project. use linter config there
-					if root_dir ~= nil and root_dir:sub(-#"Smitten/smitten") == "Smitten/smitten" then
-						return { "--config", root_dir .. "/linters/ruff.toml" }
-					end
-
-					return {}
-				end,
-			}
-
-			require("conform").formatters.ruff_fix = {
-				prepend_args = function(self, ctx)
-					local root_dir = require("conform.util").root_file(".git")(self, ctx)
-
-					-- Check if in smitten project. use linter config there
-					if root_dir ~= nil and root_dir:sub(-#"Smitten/smitten") == "Smitten/smitten" then
-						return { "--config", root_dir .. "/linters/ruff.toml" }
-					end
-
-					return {}
-				end,
-			}
-
-			require("conform").formatters.ruff_organize_imports = {
-				prepend_args = function(self, ctx)
-					local root_dir = require("conform.util").root_file(".git")(self, ctx)
-
-					-- Check if in smitten project. use linter config there
-					if root_dir ~= nil and root_dir:sub(-#"Smitten/smitten") == "Smitten/smitten" then
-						return { "--config", root_dir .. "/linters/ruff.toml" }
-					end
-
-					return {}
-				end,
-			}
-
-			require("conform").setup({
-				notify_on_error = false,
-				format_on_save = function(bufnr)
-					-- Disable "format_on_save lsp_fallback" for languages that don't
-					-- have a well standardized coding style. You can add additional
-					-- languages here or re-enable it for the disabled ones.
-					local disable_filetypes = { c = true, cpp = true }
-					return {
-						timeout_ms = 500,
-						lsp_fallback = not disable_filetypes[vim.bo[bufnr].filetype],
-					}
-				end,
-				formatters_by_ft = {
-					javascript = { "biome-check" },
-					typescript = { "biome-check" },
-					javascriptreact = { "biome-check" },
-					typescriptreact = { "biome-check" },
-					python = { "ruff_format", "ruff_organize_imports", "ruff_fix" },
-					json = { "biome-check" },
-					lua = { "stylua" },
-				},
-			})
+			require("config.conform")
 		end,
 		event = { "BufWritePre" },
 		cmd = { "ConformInfo" },
@@ -158,44 +98,34 @@ lazy.setup({
 		},
 	},
 	{
+		"neovim/nvim-lspconfig",
+		dependencies = {
+			{
+				"SmiteshP/nvim-navbuddy",
+				dependencies = {
+					"SmiteshP/nvim-navic",
+					"MunifTanjim/nui.nvim",
+				},
+				opts = { lsp = { auto_attach = true } },
+			},
+		},
+		-- your lsp config or other stuff
+	},
+	{
 		"rachartier/tiny-inline-diagnostic.nvim",
 		event = "VeryLazy", -- Or `LspAttach`
 		priority = 1000, -- needs to be loaded in first
 		config = function()
 			-- Not sure if this is good or not. Only showing on hover currently...
-			require("tiny-inline-diagnostic").setup()
+			require("tiny-inline-diagnostic").setup({
+				options = {
+					show_source = true,
+					multiple_diag_under_cursor = true,
+					multilines = true,
+				},
+			})
 		end,
 	},
-	--   {
-	--   "mfussenegger/nvim-lint",
-	--   event = {
-	--     "BufReadPre",
-	--     "BufNewFile",
-	--   },
-	--   config = function()
-	--     local lint = require("lint")
-	--
-	--     lint.linters_by_ft = {
-	--       javascript = { "eslint_d" },
-	--       typescript = { "eslint_d" },
-	--       javascriptreact = { "eslint_d" },
-	--       typescriptreact = { "eslint_d" },
-	--       lua = { "luac" },
-	--       svelte = { "eslint_d" },
-	--       python = { "pylint" },
-	--       go = { "golangcilint" },
-	--     }
-	--
-	--     local lint_augroup = vim.api.nvim_create_augroup("lint", { clear = true })
-	--
-	--     vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
-	--       group = lint_augroup,
-	--       callback = function()
-	--         lint.try_lint()
-	--       end,
-	--     })
-	--   end,
-	-- },
 	{
 		"folke/lazydev.nvim",
 		ft = "lua", -- only load on lua files
