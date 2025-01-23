@@ -56,6 +56,7 @@ conform.setup({
 		typescript = { "biome-check" },
 		javascriptreact = { "biome-check" },
 		typescriptreact = { "biome-check" },
+		yaml = { "yamlfmt" },
 		json = { "biome-check" },
 		python = { "ruff_format", "ruff_organize_imports", "ruff_fix" },
 		lua = { "stylua" },

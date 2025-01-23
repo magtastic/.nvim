@@ -94,4 +94,3 @@ map({ NORMAL_MODE }, "<leader>gd", function()
 end, config)
 map({ NORMAL_MODE }, "<leader>gh", ":diffget //2<cr>", config)
 map({ NORMAL_MODE }, "<leader>gl", ":diffget //3<cr>", config)
-
