@@ -1,15 +1,13 @@
 local mason = require("mason")
 local mason_lspconfig = require("mason-lspconfig")
 
-local lsp_config = require("lspconfig")
-
 mason.setup()
 mason_lspconfig.setup({ automatic_installation = true })
 
 local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
 -- Lua
-lsp_config.lua_ls.setup({
+vim.lsp.config('lua_ls', {
 	on_init = function(client)
 		local path = client.workspace_folders[1].name
 		if vim.loop.fs_stat(path .. "/.luarc.json") or vim.loop.fs_stat(path .. "/.luarc.jsonc") then
@@ -40,13 +38,15 @@ lsp_config.lua_ls.setup({
 		Lua = {},
 	},
 })
+vim.lsp.enable('lua_ls')
 
-lsp_config.sourcekit.setup({
+vim.lsp.config('sourcekit', {
 	on_attach = function(client)
 		-- disable formatting. Handled by null-ls
 		client.server_capabilities.documentFormattingProvider = false
 	end,
 })
+vim.lsp.enable('sourcekit')
 
 -- SQL
 -- lsp_config.sqls.setup({
@@ -68,7 +68,7 @@ lsp_config.sourcekit.setup({
 -- })
 
 -- Python
-lsp_config.pyright.setup({
+vim.lsp.config('pyright', {
 	root_markers = { ".git", "pyproject.toml" },
 	capabilities = capabilities,
 	on_attach = function(client)
@@ -76,9 +76,10 @@ lsp_config.pyright.setup({
 		client.server_capabilities.documentFormattingProvider = false
 	end,
 })
+vim.lsp.enable('pyright')
 
 -- Tsserver
-lsp_config.ts_ls.setup({
+vim.lsp.config('ts_ls', {
 	capabilities = capabilities,
 	settings = {
 		codeAction = {
@@ -98,8 +99,9 @@ lsp_config.ts_ls.setup({
 		client.server_capabilities.documentFormattingProvider = false
 	end,
 })
+vim.lsp.enable('ts_ls')
 
-lsp_config.biome.setup({
+vim.lsp.config('biome', {
 	filetypes = {
 		"typescript",
 		"typescriptreact",
@@ -107,8 +109,9 @@ lsp_config.biome.setup({
 		"javascript",
 	},
 })
+vim.lsp.enable('biome')
 
-lsp_config.eslint.setup({
+vim.lsp.config('eslint', {
 	on_attach = function(_client, bufnr)
 		vim.api.nvim_create_autocmd("BufWritePre", {
 			buffer = bufnr,
@@ -116,10 +119,12 @@ lsp_config.eslint.setup({
 		})
 	end,
 })
+vim.lsp.enable('eslint')
 
-lsp_config.terraformls.setup({
+vim.lsp.config('terraformls', {
 	on_attach = function(client)
 		-- disable formatting. Handled by null-ls
 		client.server_capabilities.documentFormattingProvider = false
 	end,
 })
+vim.lsp.enable('terraformls')

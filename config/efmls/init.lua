@@ -1,4 +1,3 @@
-local lsp_config = require("lspconfig")
 local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
 -- Got an LSP for this, Biome formatting emojis incorrectly for some reason
@@ -44,12 +43,13 @@ local efmls_config = {
 	},
 }
 
-lsp_config.efm.setup(vim.tbl_extend("force", efmls_config, {
+vim.lsp.config('efm', vim.tbl_extend("force", efmls_config, {
 	on_attach = function(client)
 		client.server_capabilities.documentFormattingProvider = true
 	end,
 	capabilities = capabilities,
 }))
+vim.lsp.enable('efm')
 
 -- Format On Save
 local lsp_fmt_group = vim.api.nvim_create_augroup("LspFormattingGroup", {})

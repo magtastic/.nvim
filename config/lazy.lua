@@ -98,20 +98,6 @@ lazy.setup({
 		},
 	},
 	{
-		"neovim/nvim-lspconfig",
-		dependencies = {
-			{
-				"SmiteshP/nvim-navbuddy",
-				dependencies = {
-					"SmiteshP/nvim-navic",
-					"MunifTanjim/nui.nvim",
-				},
-				opts = { lsp = { auto_attach = true } },
-			},
-		},
-		-- your lsp config or other stuff
-	},
-	{
 		"rachartier/tiny-inline-diagnostic.nvim",
 		event = "VeryLazy", -- Or `LspAttach`
 		priority = 1000, -- needs to be loaded in first
@@ -151,6 +137,14 @@ lazy.setup({
 			"williamboman/mason.nvim",
 			"williamboman/mason-lspconfig.nvim",
 			{
+				"SmiteshP/nvim-navbuddy",
+				dependencies = {
+					"SmiteshP/nvim-navic",
+					"MunifTanjim/nui.nvim",
+				},
+				opts = { lsp = { auto_attach = true } },
+			},
+			{
 				"nvimdev/lspsaga.nvim",
 				config = function()
 					require("config.lspsaga")
@@ -177,14 +171,12 @@ lazy.setup({
 					})
 				end,
 			},
-			"jose-elias-alvarez/typescript.nvim",
-			"simrat39/rust-tools.nvim",
+			{ "mrcjkb/rustaceanvim", ft = { "rust" } },
 			"nvim-treesitter/nvim-treesitter",
 			"nvim-treesitter/playground",
 		},
 		config = function()
 			require("config.lsp")
-			require("config.rust_tools")
 			require("config.treesitter")
 		end,
 	}, -- Auto Complete
