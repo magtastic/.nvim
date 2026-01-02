@@ -37,6 +37,8 @@ map({ NORMAL_MODE }, "<C-l>", ":vertical resize +5<cr>", config)
 
 -- Swap previous buffer
 map({ NORMAL_MODE }, "<leader>e", ":e#<cr>", config)
+map({ NORMAL_MODE }, "<leader>b", "<C-o>", config)
+map({ NORMAL_MODE }, "<leader>f", "<C-i>", config)
 
 -- Center when jumping in search
 map({ NORMAL_MODE }, "n", "nzz", config)
@@ -51,6 +53,9 @@ local telescope_builtin = require("telescope.builtin")
 map({ NORMAL_MODE }, "<C-p>", function()
 	telescope_builtin.find_files({ hidden = true })
 end, config)
+map({ NORMAL_MODE }, "<C-u>", function()
+	telescope_builtin.lsp_dynamic_workspace_symbols()
+end, config)
 map({ NORMAL_MODE }, "<C-o>", function()
 	telescope_builtin.live_grep()
 end, config)
@@ -59,9 +64,9 @@ map({ NORMAL_MODE }, "<C-i>", function()
 end, config)
 map({ NORMAL_MODE }, "<C-f>", ":Telescope projects<cr>", config)
 
-map({ NORMAL_MODE }, "<leader>t", function()
-	require("config/openai").finish_file()
-end, config)
+-- map({ NORMAL_MODE }, "<leader>t", function()
+-- 	require("config/openai").finish_file()
+-- end, config)
 
 -- Nvim Tree
 map({ NORMAL_MODE }, "<C-n>", ":NvimTreeToggle<cr>", config)
